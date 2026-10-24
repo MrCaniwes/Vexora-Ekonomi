@@ -15,6 +15,30 @@ Oyuncular Discord'daki cüzdan bakiyeleriyle doğrudan web arayüzüne giriş ya
 
 ---
 
+## 📸 Web Paneli Ekran Görüntüleri
+
+<div align="center">
+  <h3>🎰 8 Farklı Özel Web Oyunu & Casino Arenası</h3>
+  <img src="docs/screenshots/web_games.png" alt="Vexora Web Oyunları" width="100%" />
+
+  <br/><br/>
+
+  <h3>📈 Canlı Borsa & Yatırım Terminali (USD, Altın, BTC, VEX)</h3>
+  <img src="docs/screenshots/web_market.png" alt="Canlı Borsa ve Yatırım" width="100%" />
+
+  <br/><br/>
+
+  <h3>🛍️ Vexora Web Mağazası (Meslekler, Yatırımlar, Büyülü Tılsımlar)</h3>
+  <img src="docs/screenshots/web_shop.png" alt="Web Mağazası" width="100%" />
+
+  <br/><br/>
+
+  <h3>🏆 Zenginler Kulübü & Canlı Liderlik Tablosu</h3>
+  <img src="docs/screenshots/web_leaderboard.png" alt="Liderlik Sıralaması" width="100%" />
+</div>
+
+---
+
 ## 🎮 1. İnteraktif Web Casino Oyunları (8 Oyun)
 
 Stake & Roobet tarzı modern koyu neon tema, özel fizik motoru ve mobil uyumlu gövde mimarisi:
