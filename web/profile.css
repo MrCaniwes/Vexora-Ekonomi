@@ -14,7 +14,8 @@
 /* Üst Kart: Orta-Sol Avatar & İsim, Sağ Taraf Bakiye & Butonlar */
 .profile-hero-card {
     background: linear-gradient(135deg, rgba(22, 28, 45, 0.8) 0%, rgba(11, 14, 24, 0.95) 100%);
-    border: none;
+    border: none !important;
+    outline: none !important;
     border-radius: 24px;
     padding: 28px 32px;
     backdrop-filter: blur(20px);
