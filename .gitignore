@@ -1,0 +1,21 @@
+# Bağımlılıklar (Devasa node_modules klasörü yüklenmez)
+node_modules/
+package-lock.json
+
+# Gizli / Hassas Dosyalar (BOT TOKEN & ŞİFRELER GİTHUB'A ASLA GİTMEMELİ!)
+.env
+.env.*
+*.env
+
+# Canlı Veritabanı ve Kullanıcı Verileri (Gizlilik & Veri sıfırlanmasını önleme)
+database/
+
+# Sistem ve Editör Çöp Dosyaları
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+.vscode/

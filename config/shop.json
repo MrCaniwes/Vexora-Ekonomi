@@ -1,0 +1,239 @@
+{
+    "meslekler": [
+        {
+            "id": "koylu",
+            "isim": "Köylü",
+            "aciklama": "Yeni başladın ama çok çalışkansın. Maaşına %5 bonus sağlar.",
+            "fiyat": 1000,
+            "bonusYuzdesi": 5
+        },
+        {
+            "id": "torbaci",
+            "isim": "Torbacı",
+            "aciklama": "Sokakların karanlık yüzü... Riski büyük, parası tatlı. Maaşına %8 bonus sağlar.",
+            "fiyat": 2000,
+            "bonusYuzdesi": 8
+        },
+        {
+            "id": "garson",
+            "isim": "Garson",
+            "aciklama": "Bahşişlerle geçinmeye başladın. Maaşına %10 bonus sağlar.",
+            "fiyat": 3000,
+            "bonusYuzdesi": 10
+        },
+        {
+            "id": "kurye",
+            "isim": "Kurye",
+            "aciklama": "Paketleri yetiştirirken paranı da katlarsın. Maaşına %15 bonus sağlar.",
+            "fiyat": 7500,
+            "bonusYuzdesi": 15
+        },
+        {
+            "id": "yazilimci",
+            "isim": "Yazılımcı",
+            "aciklama": "Kod yazmak altın madenidir. Maaşına %25 bonus sağlar.",
+            "fiyat": 15000,
+            "bonusYuzdesi": 25
+        },
+        {
+            "id": "doktor",
+            "isim": "Doktor",
+            "aciklama": "İnsanlara şifa, sana para. Maaşına %40 bonus sağlar.",
+            "fiyat": 35000,
+            "bonusYuzdesi": 40
+        },
+        {
+            "id": "pilot",
+            "isim": "Pilot",
+            "aciklama": "Gökyüzünde para kazanırsın. Maaşına %60 bonus sağlar.",
+            "fiyat": 75000,
+            "bonusYuzdesi": 60
+        },
+        {
+            "id": "mimar",
+            "isim": "Mimar",
+            "aciklama": "Şehirleri sen inşa edersin. Maaşına %80 bonus sağlar.",
+            "fiyat": 150000,
+            "bonusYuzdesi": 80
+        },
+        {
+            "id": "ceo",
+            "isim": "CEO",
+            "aciklama": "Dev bir markanın yüzüsün. Maaşına %120 bonus sağlar.",
+            "fiyat": 350000,
+            "bonusYuzdesi": 120
+        },
+        {
+            "id": "sirket_sahibi",
+            "isim": "Şirket Sahibi",
+            "aciklama": "Patron sensin! Paraya para demezsin. Maaşına %200 bonus sağlar.",
+            "fiyat": 800000,
+            "bonusYuzdesi": 200
+        }
+    ],
+    "yatirimlar": [
+        {
+            "id": "otomat",
+            "isim": "Kahve Otomatı",
+            "aciklama": "Okul koridoruna koyarsın. Saatte 50 🪙 pasif gelir getirir.",
+            "fiyat": 10000,
+            "saatlikGelir": 50,
+            "riskOrani": 0.05,
+            "riskMesaji": "Kahve otomatını serseriler kırmış ve içindeki bütün bozuklukları çalmışlar!"
+        },
+        {
+            "id": "kripto_rig",
+            "isim": "Kripto Madenciliği",
+            "aciklama": "7/24 çalışır. Saatte 200 🪙 pasif gelir getirir.",
+            "fiyat": 35000,
+            "saatlikGelir": 200,
+            "riskOrani": 0.20,
+            "riskMesaji": "Kaçak elektrikten dolayı polis baskını yedin! Rüşvet vererek rigleri zor kurtardın ama hasılat gitti."
+        },
+        {
+            "id": "kiralik_daire",
+            "isim": "Kiralık Daire",
+            "aciklama": "Kiracıdan her saat başı düzenli 800 🪙 pasif gelir getirir.",
+            "fiyat": 120000,
+            "saatlikGelir": 800,
+            "riskOrani": 0.10,
+            "riskMesaji": "Kiracı kirayı ödemeden kaçtı, üstelik evi de harabeye çevirmiş. Tadilat masrafları yüzünden kâr edemedin!"
+        },
+        {
+            "id": "avm",
+            "isim": "Alışveriş Merkezi",
+            "aciklama": "Şehrin en işlek yeri! Saatte 3.000 🪙 devasa pasif gelir getirir.",
+            "fiyat": 400000,
+            "saatlikGelir": 3000,
+            "riskOrani": 0.05,
+            "riskMesaji": "AVM'de asılsız yangın alarmı çaldı, bütün gün dükkanlar kepenk kapattı ve hasılat yapılamadı."
+        },
+        {
+            "id": "fabrika",
+            "isim": "Otomotiv Fabrikası",
+            "aciklama": "Dev seri üretim tesisi. Saatte 12.000 🪙 pasif gelir getirir.",
+            "fiyat": 1500000,
+            "saatlikGelir": 12000,
+            "riskOrani": 0.08,
+            "riskMesaji": "Fabrikada işçiler greve gitti ve montaj bantları saatlerce durdu!"
+        },
+        {
+            "id": "luks_otel",
+            "isim": "5 Yıldızlı Lüks Otel",
+            "aciklama": "Zenginlerin uğrak noktası. Saatte 45.000 🪙 pasif gelir getirir.",
+            "fiyat": 5000000,
+            "saatlikGelir": 45000,
+            "riskOrani": 0.06,
+            "riskMesaji": "Otel mutfağında gıda zehirlenmesi skandalı patlak verdi, müşteri tazminatları kasayı boşalttı!"
+        },
+        {
+            "id": "ozel_banka",
+            "isim": "Özel Yatırım Bankası",
+            "aciklama": "Parayı parayla kazanan finans devi. Saatte 150.000 🪙 pasif gelir getirir.",
+            "fiyat": 15000000,
+            "saatlikGelir": 150000,
+            "riskOrani": 0.05,
+            "riskMesaji": "Borsa manipülasyonu iddiasıyla BDDK denetimi geldi, devasa idari ceza kesildi!"
+        },
+        {
+            "id": "uzay_sirketi",
+            "isim": "Vexora Uzay Madenciliği",
+            "aciklama": "Asteroitlerden değerli maden çıkaran uzay ajansı. Saatte 600.000 🪙 kazandırır.",
+            "fiyat": 50000000,
+            "saatlikGelir": 600000,
+            "riskOrani": 0.04,
+            "riskMesaji": "Maden taşıyan kargo mekiği atmosferde yandı ve değerli göktaşları kül oldu!"
+        }
+    ],
+    "roller": [
+        {
+            "id": "zengin_rolu",
+            "isim": "Zengin Züppe",
+            "aciklama": "Sunucuda ismini parlatacak özel bir rol.",
+            "fiyat": 999999,
+            "roleId": "BURAYA_DISCORD_ROL_IDSI_GELECEK"
+        }
+    ],
+    "yuzukler": [
+        {
+            "id": "gumus_yuzuk",
+            "isim": "Gümüş Yüzük",
+            "aciklama": "Sade bir teklif yüzüğü. Evliyken sana ve eşine +%5 Yüzük Bonusu sağlar.",
+            "fiyat": 5000,
+            "bonusYuzdesi": 5,
+            "emoji": "💍"
+        },
+        {
+            "id": "altin_yuzuk",
+            "isim": "Altın Yüzük",
+            "aciklama": "Parlak ve değerli bir yüzük. Evliyken sana ve eşine +%10 Yüzük Bonusu sağlar.",
+            "fiyat": 20000,
+            "bonusYuzdesi": 10,
+            "emoji": "<:altinyuzuk:1554952995945586748>"
+        },
+        {
+            "id": "zumrut_yuzuk",
+            "isim": "Zümrüt Yüzük",
+            "aciklama": "Büyüleyici yeşil bir mücevher. Evliyken sana ve eşine +%15 Yüzük Bonusu sağlar.",
+            "fiyat": 50000,
+            "bonusYuzdesi": 15,
+            "emoji": "<:zumrutyuzuk:1554953282714083330>"
+        },
+        {
+            "id": "yakut_yuzuk",
+            "isim": "Yakut Yüzük",
+            "aciklama": "Kan kırmızısı tutkulu bir yüzük. Evliyken sana ve eşine +%25 Yüzük Bonusu sağlar.",
+            "fiyat": 150000,
+            "bonusYuzdesi": 25,
+            "emoji": "<:yakutyuzuk:1554952698955305122>"
+        },
+        {
+            "id": "pembe_elmas",
+            "isim": "Pembe Elmas Yüzük",
+            "aciklama": "Milyarderlerin seçimi! Evliyken sana ve eşine tam +%40 Yüzük Bonusu sağlar.",
+            "fiyat": 400000,
+            "bonusYuzdesi": 40,
+            "emoji": "<:pembeyuzuk:1554953504777437216>"
+        }
+    ],
+    "tilsimlar": [
+        {
+            "id": "yonca_tilsimi",
+            "isim": "Dört Yapraklı Yonca",
+            "aciklama": "1 saat boyunca kader havuzuna geçici +3 Şans Puanı (+%6 şans) ekler.",
+            "fiyat": 35000,
+            "sureSaat": 1,
+            "tur": "sans",
+            "puan": 3,
+            "emoji": "🍀"
+        },
+        {
+            "id": "nazar_boncugu",
+            "isim": "Nazar Boncuğu",
+            "aciklama": "24 saat boyunca üzerine atılan tüm kara büyü ve lanetleri tamamen engeller.",
+            "fiyat": 60000,
+            "sureSaat": 24,
+            "tur": "koruma",
+            "emoji": "🧿"
+        },
+        {
+            "id": "bereket_tilsimi",
+            "isim": "Bereket Tılsımı",
+            "aciklama": "2 saat boyunca !çalış maaşına ve !topla işletme hasılatına ekstra +%25 kazanç sağlar.",
+            "fiyat": 85000,
+            "sureSaat": 2,
+            "tur": "gelir",
+            "bonusYuzde": 25,
+            "emoji": "💰"
+        },
+        {
+            "id": "yansima_aynasi",
+            "isim": "Yansıma Aynası",
+            "aciklama": "12 saat boyunca sana lanet okuyan kişinin büyüsünü doğrudan kendisine geri yansıtır!",
+            "fiyat": 100000,
+            "sureSaat": 12,
+            "tur": "yansima",
+            "emoji": "🪞"
+        }
+    ]
+}

@@ -1,0 +1,428 @@
+/* ======================================================
+   🚀 LIMBO (HEDEF ÇARPAN AVCISI) CASINO STYLES
+   ====================================================== */
+
+.limbo-modal {
+    background: linear-gradient(180deg, #0e121d 0%, #090c15 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95), 0 0 50px rgba(244, 63, 94, 0.15);
+    transform: scale(0.96) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .limbo-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Başlık Barı */
+.limbo-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #1c2235;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0b0e17;
+}
+
+.limbo-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.limbo-header-title h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.limbo-header-title p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.limbo-header-title .tag {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(244, 63, 94, 0.15);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    color: #fb7185;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Modal Gövde */
+.limbo-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 500px;
+    background: #090c15;
+}
+
+@media (max-width: 860px) {
+    .limbo-modal {
+        max-width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 24px 24px 0 0;
+        border-bottom: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .limbo-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}
+
+/* Sol / Limbo Gösterge Alanı */
+.limbo-game-container {
+    background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.06) 0%, #07090f 80%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 30px;
+    border-right: 1px solid #1c2235;
+    overflow: hidden;
+}
+
+@media (max-width: 860px) {
+    .limbo-game-container {
+        border-right: none;
+        border-bottom: 1px solid #1c2235;
+        border-top: none;
+        padding: 20px 14px;
+        flex-shrink: 0;
+    }
+
+    .limbo-multiplier-val {
+        font-size: 52px;
+    }
+
+    .limbo-multiplier-display {
+        margin-bottom: 12px;
+    }
+
+    .limbo-controls {
+        padding: 16px 14px 24px;
+        flex-grow: 1;
+    }
+
+    .limbo-action-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+/* Büyük Limbo Sonuç Sayacı */
+.limbo-multiplier-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.limbo-multiplier-val {
+    font-size: 78px;
+    font-weight: 900;
+    font-family: var(--font-heading);
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.limbo-multiplier-display.win .limbo-multiplier-val {
+    color: #34d399;
+    text-shadow: 0 0 35px rgba(16, 185, 129, 0.6);
+}
+
+.limbo-multiplier-display.lose .limbo-multiplier-val {
+    color: #fb7185;
+    text-shadow: 0 0 35px rgba(244, 63, 94, 0.45);
+}
+
+/* Hedef Göstergesi Rozeti */
+.limbo-target-badge {
+    background: #131826;
+    border: 1px solid #1f273d;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.limbo-target-badge span {
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Modal İçi Bildirim Rozeti (Overlay) */
+.limbo-result-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(15, 18, 29, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    z-index: 40;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.limbo-result-overlay.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.limbo-result-overlay.win {
+    border-color: rgba(52, 211, 153, 0.5);
+    color: #34d399;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.limbo-result-overlay.lose {
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #fb7185;
+    box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
+}
+
+/* Sağ Kontrol Paneli */
+.limbo-controls {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    background: #090c15;
+}
+
+.limbo-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.limbo-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Hedef Çarpan Girişi & Preset Butonları */
+.limbo-target-wrap {
+    display: flex;
+    align-items: center;
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.limbo-target-wrap:focus-within {
+    border-color: #f43f5e;
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+}
+
+.limbo-target-wrap input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    width: 100%;
+    outline: none;
+}
+
+.limbo-target-presets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.limbo-preset-btn {
+    background: #131826;
+    border: 1px solid #1c2235;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.limbo-preset-btn:hover {
+    background: #1e2638;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* İstatistik / Oran Kartı */
+.limbo-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.limbo-stat-box {
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.limbo-stat-box .title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.limbo-stat-box .val {
+    font-size: 15px;
+    font-weight: 900;
+    color: #fff;
+    font-family: var(--font-heading);
+}
+
+.limbo-stat-box .val.gold {
+    color: #fbbf24;
+}
+
+/* Bahis Girişi */
+.limbo-input-wrap {
+    display: flex;
+    align-items: center;
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.limbo-input-wrap:focus-within {
+    border-color: #f43f5e;
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+}
+
+.limbo-input-wrap input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    width: 100%;
+    outline: none;
+}
+
+.limbo-bet-presets {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    width: 100%;
+}
+
+.limbo-bet-presets .limbo-preset-btn {
+    flex: 1;
+    background: #131826;
+    border: 1px solid #1c2235;
+    color: var(--text-muted);
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.limbo-bet-presets .limbo-preset-btn:hover {
+    background: #1e2638;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Aksiyon Butonu */
+.limbo-action-btn {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    border: 1px solid #fb7185;
+    color: #fff;
+    padding: 15px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
+    width: 100%;
+}
+
+.limbo-action-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(244, 63, 94, 0.55);
+    filter: brightness(1.1);
+}
+
+.limbo-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.limbo-art {
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.25), rgba(244, 63, 94, 0.05));
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    color: #fb7185;
+    text-shadow: 0 0 15px rgba(244, 63, 94, 0.6);
+}

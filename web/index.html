@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEXORA &bull; Ekonomi & Oyun Platformu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="crash.css?v=4">
+    <link rel="stylesheet" href="plinko.css?v=5">
+    <link rel="stylesheet" href="roulette.css?v=5">
+    <link rel="stylesheet" href="wheel.css?v=5">
+    <link rel="stylesheet" href="towers.css?v=5">
+    <link rel="stylesheet" href="keno.css?v=5">
+    <link rel="stylesheet" href="limbo.css?v=5">
+    <link rel="stylesheet" href="road.css?v=5">
+    <link rel="stylesheet" href="market.css?v=2">
+    <link rel="stylesheet" href="shop.css?v=2">
+</head>
+<body>
+
+    <!-- Arka Plan Grid Işığı -->
+    <div class="bg-grid"></div>
+
+    <div class="app-wrapper">
+        
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-top-row">
+                <a href="/" class="brand">
+                    <span>VEXORA</span>
+                </a>
+
+                <!-- Sağ Butonlar / Profil & Bakiye -->
+                <div class="nav-right" id="userSection">
+                    <div class="balance-pill">
+                        <span>🪙</span>
+                        <span id="navBalance">...</span>
+                        <span class="currency">VEX</span>
+                    </div>
+
+                    <a href="/auth/login" class="btn-nav" style="background: #5865f2; border-color: #5865f2; color: #fff;">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>Giriş</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Alt Sekme Çubuğu -->
+            <div class="nav-tabs-bar">
+                <button onclick="switchTab('games')" id="tabBtnGames" class="btn-nav active">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>Oyunlar</span>
+                </button>
+                <button onclick="switchTab('leaderboard')" id="tabBtnLeaderboard" class="btn-nav">
+                    <i class="fa-solid fa-trophy" style="color: #fbbf24;"></i>
+                    <span>Liderlik Tablosu</span>
+                </button>
+                <button onclick="switchTab('market')" id="tabBtnMarket" class="btn-nav">
+                    <i class="fa-solid fa-chart-line" style="color: #38bdf8;"></i>
+                    <span>Borsa & Piyasa</span>
+                </button>
+                <button onclick="switchTab('shop')" id="tabBtnShop" class="btn-nav">
+                    <i class="fa-solid fa-bag-shopping" style="color: #10b981;"></i>
+                    <span>Mağaza</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- OYUNLAR SECTION -->
+        <main class="main-content tab-content active" id="tabContentGames">
+            
+            <!-- Üst Bar: Başlık & Filtreler -->
+            <div class="games-header-bar">
+                <div class="games-header-left">
+                    <h2 class="games-title">
+                        <i class="fa-solid fa-gamepad" style="color: #6366f1;"></i>
+                        <span>Özel Web Oyunları</span>
+                    </h2>
+                    <p class="games-subtitle">Discord cüzdanınızla doğrudan oynayabileceğiniz yüksek grafikli modlar</p>
+                </div>
+                
+                <div class="games-filter-pills">
+                    <button class="filter-pill active"><i class="fa-solid fa-fire"></i> Popüler</button>
+                    <button class="filter-pill"><i class="fa-solid fa-chart-line"></i> Yüksek Çarpan</button>
+                    <button class="filter-pill"><i class="fa-solid fa-gem"></i> Şans</button>
+                </div>
+            </div>
+
+            <!-- Stake / Roobet Tarzı Görsel Bannerlı Oyun Kartları Grid -->
+            <div class="games-grid-v2">
+                
+                <!-- 1. CRASH (ROKET) - Öne Çıkan Kart -->
+                <div class="game-poster-card featured" onclick="openCrashModal()">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.25), transparent 70%);"></div>
+                    <div class="game-badge-live">
+                        <span class="pulse-circle"></span> CANLI OYUN
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art rocket-art">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag hot"><i class="fa-solid fa-fire"></i> En Çok Oynanan</span>
+                            <span class="meta-mult">x500.00'e kadar</span>
+                        </div>
+                        <h3 class="game-name">Crash Arena</h3>
+                        <p class="game-desc">Roket tırmandıkça çarpan katlanır. İnfilak gerçekleşmeden paranızı güvene alın.</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-users"></i>
+                                <span>Canlı Çok Oyunculu</span>
+                            </div>
+                            <button class="btn-card-play">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PLINKO (PİRAMİT) - YENİ MOD -->
+                <div class="game-poster-card" onclick="openPlinkoModal()" style="border-color: rgba(16, 185, 129, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(16, 185, 129, 0.85); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);">
+                        <span class="pulse-circle"></span> YENİ MOD
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art plinko-art">
+                            <i class="fa-solid fa-circle-dot"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag green"><i class="fa-solid fa-bolt"></i> Fizik & Çivi</span>
+                            <span class="meta-mult">x110.00'a kadar</span>
+                        </div>
+                        <h3 class="game-name">Plinko Pyramid</h3>
+                        <p class="game-desc">Bilyeleri çivilerden bırakın! Çarparak süzülen bilyelerle altın kovaları vurun.</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span>3 Farklı Risk Modu</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #10b981; border-color: #34d399;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. AVRUPA RULETİ (ROULETTE ROYALE 0-36) -->
+                <div class="game-poster-card" onclick="openRouletteModal()" style="border-color: rgba(225, 29, 72, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(225, 29, 72, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(225, 29, 72, 0.85); box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);">
+                        <span class="pulse-circle"></span> EFSANE MOD
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art rocket-art" style="background: linear-gradient(135deg, rgba(225, 29, 72, 0.25), rgba(225, 29, 72, 0.05)); color: #fb7185;">
+                            <i class="fa-solid fa-dharmachakra"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag hot"><i class="fa-solid fa-crown"></i> 36x Ödeme</span>
+                            <span class="meta-mult">0 - 36 Klasik Rulet</span>
+                        </div>
+                        <h3 class="game-name">Avrupa Ruleti</h3>
+                        <p class="game-desc">Kırmızı/Siyah, Tek/Çift veya doğrudan sayılara fiş koyup çarkı çevirin!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-dice"></i>
+                                <span>İnteraktif Çuha Masası</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #e11d48; border-color: #fb7185;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. KLASİK ÇARK (WHEEL 2x / 2x / 20x) -->
+                <div class="game-poster-card" onclick="openWheelModal()" style="border-color: rgba(245, 158, 11, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(245, 158, 11, 0.85); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);">
+                        <span class="pulse-circle"></span> POPÜLER
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art wheel-art">
+                            <i class="fa-solid fa-dharmachakra"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag gold"><i class="fa-solid fa-crown"></i> 20x Jackpot</span>
+                            <span class="meta-mult">Kırmızı &bull; Siyah &bull; Yeşil</span>
+                        </div>
+                        <h3 class="game-name">Klasik Çark</h3>
+                        <p class="game-desc">Kırmızıya (2x), Siyaha (2x) veya büyük Yeşil Jackpot'a (20x) oyna ve çevir!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-coins"></i>
+                                <span>Çoklu Renk Bahsi</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #f59e0b; border-color: #fbbf24;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. KULE TIRMANIŞI (TOWERS CASINO) -->
+                <div class="game-poster-card" onclick="openTowersModal()" style="border-color: rgba(59, 130, 246, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(59, 130, 246, 0.85); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);">
+                        <span class="pulse-circle"></span> YENİ OYUN
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art tower-art">
+                            <i class="fa-solid fa-chess-rook"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag hot" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;"><i class="fa-solid fa-mountain"></i> 215x Zirve</span>
+                            <span class="meta-mult">8 Katlı Kule</span>
+                        </div>
+                        <h3 class="game-name">Kule Tırmanışı</h3>
+                        <p class="game-desc">Mayınlardan kaçınarak basamakları tırmanın, her katta katlanan kazancı çekin!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-shield"></i>
+                                <span>3 Zorluk Seviyesi</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #3b82f6; border-color: #60a5fa;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. KENO (ALTIN PİYANGO & LOTO) -->
+                <div class="game-poster-card" onclick="openKenoModal()" style="border-color: rgba(168, 85, 247, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(168, 85, 247, 0.85); box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);">
+                        <span class="pulse-circle"></span> YENİ MOD
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art keno-art">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag hot" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;"><i class="fa-solid fa-gem"></i> 1000x İkramiye</span>
+                            <span class="meta-mult">40 Numaralı Loto</span>
+                        </div>
+                        <h3 class="game-name">Altın Keno</h3>
+                        <p class="game-desc">Şanslı numaralarını seç, çekilen altın toplarla eşleşen ikramiyeyi katla!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-dice-d6"></i>
+                                <span>1-10 Sayı Seçimi</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #a855f7; border-color: #c084fc;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. LIMBO (HEDEF ÇARPAN AVCISI) -->
+                <div class="game-poster-card" onclick="openLimboModal()" style="border-color: rgba(244, 63, 94, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(244, 63, 94, 0.85); box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);">
+                        <span class="pulse-circle"></span> 1000X HEDEF
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art limbo-art">
+                            <i class="fa-solid fa-meteor"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag hot"><i class="fa-solid fa-crosshairs"></i> Anlık Sonuç</span>
+                            <span class="meta-mult">1.05x - 1000x</span>
+                        </div>
+                        <h3 class="game-name">Limbo</h3>
+                        <p class="game-desc">Hedef çarpanını belirle, tek tıkla hedefi vurup katlanan ödülü kap!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-gauge-high"></i>
+                                <span>Yüksek Çarpan</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #f43f5e; border-color: #fb7185;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. CHICKEN ROAD (TRAFİK KARŞIYA GEÇİŞ) -->
+                <div class="game-poster-card" onclick="openRoadModal()" style="border-color: rgba(234, 179, 8, 0.35);">
+                    <div class="card-glow" style="background: radial-gradient(circle at 80% 20%, rgba(234, 179, 8, 0.22), transparent 70%);"></div>
+                    <div class="game-badge-live" style="background: rgba(234, 179, 8, 0.85); box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4); color: #000;">
+                        <span class="pulse-circle"></span> EFSANE MOD
+                    </div>
+                    
+                    <div class="card-visual">
+                        <div class="visual-art road-art">
+                            <i class="fa-solid fa-road"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="game-meta">
+                            <span class="meta-tag gold"><i class="fa-solid fa-truck-fast"></i> 68x Zirve</span>
+                            <span class="meta-mult">8 Şeritli Otoyol</span>
+                        </div>
+                        <h3 class="game-name">Chicken Road</h3>
+                        <p class="game-desc">Arabaların arasından zıplayarak karşıya geç, her şeritte katlanan parayı çek!</p>
+                        
+                        <div class="card-action-bar">
+                            <div class="player-stat">
+                                <i class="fa-solid fa-shield"></i>
+                                <span>3 Trafik Zorluğu</span>
+                            </div>
+                            <button class="btn-card-play" style="background: #eab308; border-color: #fde047; color: #000;">
+                                <span>Oyna</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- LİDERLİK TABLOSU SECTION -->
+        <main class="main-content tab-content" id="tabContentLeaderboard" style="display: none;">
+            <div class="section-head">
+                <div>
+                    <h2 style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-trophy" style="color: #fbbf24;"></i>
+                        <span>Zenginler Kulübü & Liderlik Sıralaması</span>
+                    </h2>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Sunucudaki en yüksek Net Servete (Nakit + Borsa Portföyü) sahip elit oyuncular</p>
+                </div>
+                <button onclick="fetchLeaderboard()" class="btn-nav" style="border-radius: 8px;">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Yenile</span>
+                </button>
+            </div>
+
+            <!-- Top 3 Podyum Kartları -->
+            <div class="podium-grid" id="leaderboardPodium">
+                <!-- JS doldurur -->
+            </div>
+
+            <!-- Detaylı Liste Tablosu -->
+            <div class="table-card">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px; text-align: center;">Sıra</th>
+                            <th>Oyuncu</th>
+                            <th style="text-align: right;">Cüzdan Nakit</th>
+                            <th style="text-align: right;">Borsa Yatırımı</th>
+                            <th style="text-align: right;">Toplam Net Servet</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i> Liderlik tablosu yükleniyor...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- BORSA & PİYASA SECTION -->
+        <main class="main-content tab-content" id="tabContentMarket" style="display: none;">
+            <div class="section-head">
+                <div>
+                    <h2>
+                        <i class="fa-solid fa-chart-line" style="color: #38bdf8;"></i>
+                        <span>Canlı Borsa & Yatırım Terminali</span>
+                    </h2>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Dolar, Altın, Bitcoin ve Vexora Coin anlık fiyatları ve canlı alım-satım</p>
+                </div>
+            </div>
+
+            <!-- Borsa Üst İstatistik Kartları -->
+            <div class="market-header-stats">
+                <div class="market-stat-card">
+                    <div class="market-stat-icon" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div class="market-stat-info">
+                        <h4>Piyasa Güncellemesi</h4>
+                        <p id="marketCountdownVal">--:--</p>
+                    </div>
+                </div>
+
+                <div class="market-stat-card">
+                    <div class="market-stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #c084fc;">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <div class="market-stat-info">
+                        <h4>Borsa Portföy Değeriniz</h4>
+                        <p id="marketTotalPortfoyVal">0 🪙</p>
+                    </div>
+                </div>
+
+                <div class="market-stat-card">
+                    <div class="market-stat-icon" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24;">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div class="market-stat-info">
+                        <h4>Kullanılabilir Nakit</h4>
+                        <p id="marketTotalCuzdanVal">0 🪙</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Varlık Kartları Izgarası (Dolar, Altın, BTC, VEX) -->
+            <div class="market-assets-grid" id="marketCardsArea">
+                <!-- JS doldurur -->
+            </div>
+        </main>
+
+        <!-- DİSCORD MAĞAZA SECTION -->
+        <main class="main-content tab-content" id="tabContentShop" style="display: none;">
+            <div class="section-head">
+                <div>
+                    <h2>
+                        <i class="fa-solid fa-bag-shopping" style="color: #10b981;"></i>
+                        <span>Vexora Mağazası</span>
+                    </h2>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Meslek rolleri, işletmeler, şans tılsımları ve evlilik yüzüklerini webden anında satın alın</p>
+                </div>
+            </div>
+
+            <!-- Mağaza Kategori Filtre Butonları -->
+            <div class="shop-category-nav">
+                <button class="shop-tab-btn active" data-cat="meslekler" onclick="switchShopCategory('meslekler')">
+                    <i class="fa-solid fa-briefcase"></i> Meslek Rolleri
+                </button>
+                <button class="shop-tab-btn" data-cat="yatirimlar" onclick="switchShopCategory('yatirimlar')">
+                    <i class="fa-solid fa-building"></i> İşletme & Yatırımlar
+                </button>
+                <button class="shop-tab-btn" data-cat="tilsimlar" onclick="switchShopCategory('tilsimlar')">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Büyülü Tılsımlar
+                </button>
+                <button class="shop-tab-btn" data-cat="roller" onclick="switchShopCategory('roller')">
+                    <i class="fa-solid fa-masks-theater"></i> Sunucu Rolleri
+                </button>
+                <button class="shop-tab-btn" data-cat="yuzukler" onclick="switchShopCategory('yuzukler')">
+                    <i class="fa-solid fa-gem"></i> Evlilik Yüzükleri
+                </button>
+            </div>
+
+            <!-- Ürün Kartları Izgarası -->
+            <div class="shop-items-grid" id="shopItemsGrid">
+                <!-- JS doldurur -->
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer style="padding: 24px; text-align: center; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); margin-top: auto;">
+            VEXORA &bull; Discord Ekonomi Sistemi ile Doğrudan Bağlantılıdır
+        </footer>
+
+    </div>
+
+    <!-- SAĞDAN AÇILAN PROFİL PANELİ (DRAWER) -->
+    <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleProfileDrawer()"></div>
+    
+    <div class="profile-drawer" id="profileDrawer">
+        <div class="drawer-header">
+            <div class="drawer-user">
+                <img id="drawerAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                <div class="drawer-user-info">
+                    <h4 id="drawerName">Yükleniyor...</h4>
+                    <p id="drawerId">ID: ...</p>
+                </div>
+            </div>
+            <button class="drawer-close" onclick="toggleProfileDrawer()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="drawer-body">
+            
+            <!-- Finansal Durum -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fa-solid fa-wallet"></i> Finansal Durum
+                </div>
+                <div class="info-row">
+                    <span class="label">Nakit Cüzdan</span>
+                    <span class="val" id="drawerNakit" style="color: var(--gold);">0 🪙</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Borsa Portföyü</span>
+                    <span class="val" id="drawerBorsa">0 🪙</span>
+                </div>
+                <div class="info-row" style="padding-top: 8px; margin-top: 4px; border-top: 1px solid var(--border);">
+                    <span class="label" style="color: #fff; font-weight: 700;">Toplam Servet</span>
+                    <span class="val" id="drawerServet" style="color: #10b981; font-weight: 800;">0 🪙</span>
+                </div>
+            </div>
+
+            <!-- Kariyer & Kader -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fa-solid fa-user-astronaut"></i> Kariyer & Aura
+                </div>
+                <div class="info-row">
+                    <span class="label">Meslek</span>
+                    <span class="val" id="drawerMeslek">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Seviye</span>
+                    <span class="val" id="drawerSeviye">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Medeni Durum</span>
+                    <span class="val" id="drawerMedeni">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Aura / Kader</span>
+                    <span class="val" id="drawerAura" style="color: #818cf8;">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Aktif Tılsım</span>
+                    <span class="val" id="drawerTilsim" style="color: #2dd4bf;">-</span>
+                </div>
+            </div>
+
+            <!-- Varlıklar -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fa-solid fa-building"></i> İşletmeler & Yüzükler
+                </div>
+                <div style="margin-bottom: 8px;">
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">İşletmeler:</div>
+                    <div id="drawerIsletmeler">
+                        <!-- JS Doldurur -->
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">Çantadaki Yüzükler:</div>
+                    <div id="drawerYuzukler">
+                        <!-- JS Doldurur -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="drawer-footer">
+            <a href="/auth/logout" class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap
+            </a>
+        </div>
+    </div>
+
+    <!-- 🚀 CRASH OYUNU MODAL EKRANI (STAKE TARZI PREMIUM) -->
+    <div class="modal-backdrop" id="crashModal">
+        <div class="crash-modal">
+            
+            <!-- Modal Üst Başlık -->
+            <div class="crash-header">
+                <div class="crash-header-title">
+                    <span style="font-size: 22px;">🚀</span>
+                    <div>
+                        <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px;">CRASH ARENA</h3>
+                        <p style="font-size: 11px; color: var(--text-muted);">Gerçek Zamanlı Çarpan Tırmanışı</p>
+                    </div>
+                    <span class="tag">CANLI</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeCrashModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Ana Gövde -->
+            <div class="crash-body">
+                
+                <!-- Sol: Canlı Radar, Çarpan Geçmişi & Roket Canvas -->
+                <div class="crash-canvas-container">
+                    
+                    <!-- Üst Çarpan Geçmişi Ticker (Canlı Gerçek Veriler) -->
+                    <div class="crash-history-bar" id="crashHistoryBar">
+                        <!-- Gerçek geçmiş sunucudan yüklenir -->
+                    </div>
+
+                    <canvas id="crashCanvas"></canvas>
+                    
+                    <!-- Çarpan Büyük Sayaç -->
+                    <div class="crash-overlay">
+                        <div class="crash-multiplier" id="crashMultiplierText">1.00x</div>
+                        <div class="crash-status" id="crashStatusText">Bahsinizi yapın ve roket tırmanışını başlatın</div>
+                    </div>
+                </div>
+
+                <!-- Sağ: Modern Kontrol Paneli -->
+                <div class="crash-controls">
+                    <div>
+                        <div class="panel-section-title">
+                            <span>Bahis Tutarı</span>
+                            <span style="color: var(--gold); font-size: 10px;">🪙 Cüzdan Nakit</span>
+                        </div>
+
+                        <!-- Bahis Girişi -->
+                        <div class="bet-input-card">
+                            <input type="number" id="crashBetInput" value="100" min="10" step="10">
+                            <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                        </div>
+
+                        <!-- Hızlı Miktar Butonları -->
+                        <div class="quick-bets-grid">
+                            <button class="btn-bet-preset" onclick="setQuickBet(100)">100</button>
+                            <button class="btn-bet-preset" onclick="setQuickBet(500)">500</button>
+                            <button class="btn-bet-preset" onclick="setQuickBet('2x')">2X</button>
+                            <button class="btn-bet-preset" onclick="setQuickBet('1/2')">½</button>
+                        </div>
+
+                        <!-- Oyun Bilgi Kutusu -->
+                        <div class="game-stats-box">
+                            <div class="game-stats-row">
+                                <span>Maksimum Çarpan:</span>
+                                <span style="color: #fff; font-weight: 700;">x500.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Büyük Aksiyon Butonu -->
+                    <button id="btnCrashAction" class="btn-crash-main start" onclick="handleCrashAction()">
+                        <span>BAHİS YAP VE BAŞLAT</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 🟢 PLINKO OYUNU MODAL EKRANI -->
+    <div class="modal-backdrop" id="plinkoModal">
+        <div class="plinko-modal">
+            
+            <!-- Modal Başlık -->
+            <div class="crash-header">
+                <div class="crash-header-title">
+                    <span style="font-size: 22px;">🟢</span>
+                    <div>
+                        <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px;">PLINKO PYRAMID</h3>
+                        <p style="font-size: 11px; color: var(--text-muted);">Fizik Tabanlı Çivili Bilye Yağmuru</p>
+                    </div>
+                    <span class="tag" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #34d399;">CANLI</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closePlinkoModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="plinko-body">
+                
+                <!-- Sol: Piramit Canvas & Çarpan Kovaları -->
+                <div class="plinko-canvas-container">
+                    <canvas id="plinkoCanvas"></canvas>
+                    <div class="plinko-buckets-row" id="plinkoBucketsRow">
+                        <!-- JS doldurur -->
+                    </div>
+                </div>
+
+                <!-- Sağ: Bahis & Risk Kontrolleri -->
+                <div class="crash-controls">
+                    <div>
+                        <!-- Son Kazançlar -->
+                        <div class="panel-section-title">
+                            <span>Son Çarpanlar</span>
+                        </div>
+                        <div class="plinko-recent-wins" id="plinkoRecentWins">
+                            <span class="plinko-win-badge" style="color: #94a3b8; border-color: rgba(255,255,255,0.06);">-</span>
+                        </div>
+
+                        <!-- Risk Seviyesi -->
+                        <div class="panel-section-title" style="margin-top: 14px;">
+                            <span>Risk Seviyesi</span>
+                        </div>
+                        <div class="risk-selector-grid">
+                            <button class="btn-risk" data-risk="low" onclick="setPlinkoRisk('low')">Düşük</button>
+                            <button class="btn-risk active" data-risk="medium" onclick="setPlinkoRisk('medium')">Orta</button>
+                            <button class="btn-risk" data-risk="high" onclick="setPlinkoRisk('high')">Yüksek</button>
+                        </div>
+
+                        <!-- Bahis Tutarı -->
+                        <div class="panel-section-title">
+                            <span>Bahis Tutarı (Bilye Başına)</span>
+                            <span style="color: var(--gold); font-size: 10px;">🪙 Nakit</span>
+                        </div>
+                        <div class="bet-input-card">
+                            <input type="number" id="plinkoBetInput" value="100" min="10" step="10">
+                            <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                        </div>
+
+                        <!-- Hızlı Seçim Butonları -->
+                        <div class="quick-bets-grid">
+                            <button class="btn-bet-preset" onclick="setPlinkoQuickBet(100)">100</button>
+                            <button class="btn-bet-preset" onclick="setPlinkoQuickBet(500)">500</button>
+                            <button class="btn-bet-preset" onclick="setPlinkoQuickBet('2x')">2X</button>
+                            <button class="btn-bet-preset" onclick="setPlinkoQuickBet('1/2')">½</button>
+                        </div>
+                    </div>
+
+                    <!-- Büyük Bırak Butonu -->
+                    <button id="btnPlinkoDrop" class="btn-plinko-drop" onclick="handlePlinkoDrop()">
+                        <i class="fa-solid fa-circle-dot"></i>
+                        <span>BİLYE BIRAK</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 5. KULE TIRMANIŞI (TOWERS CASINO) MODAL    -->
+    <!-- ========================================== -->
+    <div id="towersModal" class="modal-backdrop">
+        <div class="towers-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="towers-header">
+                <div class="towers-header-title">
+                    <span style="font-size: 22px;">🏰</span>
+                    <div>
+                        <h3>KULE TIRMANIŞI</h3>
+                        <p>Mayınlardan kaçınarak 8 katlı kulenin zirvesine tırmanın!</p>
+                    </div>
+                    <span class="tag">YENİ MOD</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeTowersModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal İçerik -->
+            <div class="towers-body">
+                
+                <!-- Sol / Kule Tahtası (8 Kat) -->
+                <div class="towers-game-container">
+                    <div class="towers-game-board" id="towerGameBoard">
+                        <!-- Dinamik Kule Katları towers.js tarafından oluşturulur -->
+                    </div>
+
+                    <!-- Modal İçi Canlı Sonuç Rozeti (Overlay) -->
+                    <div class="towers-result-overlay" id="towersResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="towers-controls">
+                    <div>
+                        <!-- Zorluk Seçici -->
+                        <div class="towers-control-group">
+                            <span class="towers-label"><i class="fa-solid fa-gauge-high"></i> Zorluk Derecesi</span>
+                            <div class="towers-diff-selector">
+                                <button class="towers-diff-btn" data-diff="easy" onclick="setTowerDifficulty('easy')">
+                                    Kolay (4 Kutu)
+                                </button>
+                                <button class="towers-diff-btn active" data-diff="medium" onclick="setTowerDifficulty('medium')">
+                                    Orta (3 Kutu)
+                                </button>
+                                <button class="towers-diff-btn" data-diff="hard" onclick="setTowerDifficulty('hard')">
+                                    Zor (2 Kutu)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="towers-control-group" style="margin-top: 14px;">
+                            <span class="towers-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="towers-input-wrap">
+                                <input type="number" id="towerBetInput" value="100" min="10" step="10" oninput="onTowerBetChange()">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="towers-presets">
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('half')">½</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('double')">2X</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+
+                        <!-- Kazanç / Durum Bilgisi -->
+                        <div class="towers-profit-card" style="margin-top: 14px;">
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Mevcut Çarpan:</span>
+                                <span id="towerCurrentMult" class="towers-profit-val">1.00x</span>
+                            </div>
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Sonraki Kat:</span>
+                                <span id="towerNextMult" class="towers-profit-val">1.44x</span>
+                            </div>
+                            <div class="towers-profit-row" style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
+                                <span style="font-weight: 700;">Çekilebilir Tutar:</span>
+                                <span id="towerCashoutValue" class="towers-profit-val gold">0 🪙</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Butonlar -->
+                    <div>
+                        <button id="btnTowerStart" class="towers-action-btn" onclick="handleTowerStart()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>OYUNA BAŞLA</span>
+                        </button>
+
+                        <button id="btnTowerCashout" class="towers-action-btn towers-cashout-btn" style="display: none;" onclick="handleTowerCashout()">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <span>ÇEK: 0 🪙</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🔴 AVRUPA RULETİ (ROULETTE ROYALE 0-36) MODAL EKRANI -->
+    <div class="modal-backdrop" id="rouletteModal">
+        <div class="roulette-modal">
+            
+            <!-- Modal Başlık -->
+            <div class="crash-header">
+                <div class="crash-header-title">
+                    <span style="font-size: 22px;">👑</span>
+                    <div>
+                        <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px;">AVRUPA RULETİ</h3>
+                        <p style="font-size: 11px; color: var(--text-muted);">0 - 36 Klasik Fransız & Avrupa Masası</p>
+                    </div>
+                    <span class="tag" style="background: rgba(225, 29, 72, 0.15); border-color: rgba(225, 29, 72, 0.3); color: #fb7185;">CANLI</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeRouletteModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="roulette-body">
+                
+                <!-- Sol: Rulet Çarkı & İbre -->
+                <div class="roulette-wheel-container">
+                    <div class="roulette-history-bar" id="rouletteHistoryBar">
+                        <!-- JS doldurur -->
+                    </div>
+
+                    <div class="roulette-wheel-wrapper">
+                        <div class="roulette-pointer"></div>
+                        <canvas id="rouletteCanvas"></canvas>
+                        <div class="roulette-center-hub">
+                            <span class="win-num" id="rouletteHubNumber">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Canlı Şık Sonuç Rozeti -->
+                    <div class="wheel-result-overlay" id="rouletteResultOverlay"></div>
+                </div>
+
+                <!-- Sağ: Rulet Masası & Fişler -->
+                <div class="roulette-table-container">
+                    <div>
+                        <!-- Fiş Seçim Barı -->
+                        <div class="panel-section-title">
+                            <span>Fiş Değeri Seçin</span>
+                            <span style="color: var(--gold); font-size: 10px;">🪙 Masaya Tıklayarak Koyun</span>
+                        </div>
+                        <div class="chip-selector-bar">
+                            <div class="chip-btn chip-10" data-chip="10" onclick="selectChip(10)">10</div>
+                            <div class="chip-btn chip-50" data-chip="50" onclick="selectChip(50)">50</div>
+                            <div class="chip-btn chip-100 active" data-chip="100" onclick="selectChip(100)">100</div>
+                            <div class="chip-btn chip-500" data-chip="500" onclick="selectChip(500)">500</div>
+                            <div class="chip-btn chip-1000" data-chip="1000" onclick="selectChip(1000)">1k</div>
+                        </div>
+
+                        <!-- Rulet Sayı Masası (0 - 36) -->
+                        <div class="roulette-board-layout">
+                            <div class="board-zero" id="rNum_0" onclick="placeRouletteBet('number', 0)">
+                                <span>0</span>
+                            </div>
+                            <div class="board-numbers-grid" id="rouletteNumbersGrid">
+                                <!-- JS doldurur -->
+                            </div>
+                        </div>
+
+                        <!-- Dış Bahisler (Düzineler & 1:1 Bahisler) -->
+                        <div class="board-outside-bets">
+                            <!-- 1. 12 / 2. 12 / 3. 12 (3x) -->
+                            <div class="outside-row">
+                                <div class="outside-tile" id="rBet_doz1" onclick="placeRouletteBet('outside', 'doz1')">1. 12 (3x)</div>
+                                <div class="outside-tile" id="rBet_doz2" onclick="placeRouletteBet('outside', 'doz2')">2. 12 (3x)</div>
+                                <div class="outside-tile" id="rBet_doz3" onclick="placeRouletteBet('outside', 'doz3')">3. 12 (3x)</div>
+                            </div>
+                            <!-- 1-18 / ÇİFT / KIRMIZI / SİYAH / TEK / 19-36 (2x) -->
+                            <div class="outside-row" style="grid-template-columns: repeat(6, 1fr);">
+                                <div class="outside-tile" id="rBet_low" onclick="placeRouletteBet('outside', 'low')">1-18</div>
+                                <div class="outside-tile" id="rBet_even" onclick="placeRouletteBet('outside', 'even')">ÇİFT</div>
+                                <div class="outside-tile red-bet" id="rBet_red" onclick="placeRouletteBet('outside', 'red')">KIRMIZI</div>
+                                <div class="outside-tile black-bet" id="rBet_black" onclick="placeRouletteBet('outside', 'black')">SİYAH</div>
+                                <div class="outside-tile" id="rBet_odd" onclick="placeRouletteBet('outside', 'odd')">TEK</div>
+                                <div class="outside-tile" id="rBet_high" onclick="placeRouletteBet('outside', 'high')">19-36</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aksiyon Barı -->
+                    <div class="roulette-action-bar">
+                        <button class="btn-clear-bets" onclick="clearRouletteBets()">
+                            <i class="fa-solid fa-trash-can"></i> Temizle
+                        </button>
+                        <button id="btnRouletteSpin" class="btn-roulette-spin" onclick="handleRouletteSpin()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>ÇEVİR</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 5. KULE TIRMANIŞI (TOWERS CASINO) MODAL    -->
+    <!-- ========================================== -->
+    <div id="towersModal" class="modal-backdrop">
+        <div class="towers-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="towers-header">
+                <div class="towers-header-title">
+                    <span style="font-size: 22px;">🏰</span>
+                    <div>
+                        <h3>KULE TIRMANIŞI</h3>
+                        <p>Mayınlardan kaçınarak 8 katlı kulenin zirvesine tırmanın!</p>
+                    </div>
+                    <span class="tag">YENİ MOD</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeTowersModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal İçerik -->
+            <div class="towers-body">
+                
+                <!-- Sol / Kule Tahtası (8 Kat) -->
+                <div class="towers-game-container">
+                    <div class="towers-game-board" id="towerGameBoard">
+                        <!-- Dinamik Kule Katları towers.js tarafından oluşturulur -->
+                    </div>
+
+                    <!-- Modal İçi Canlı Sonuç Rozeti (Overlay) -->
+                    <div class="towers-result-overlay" id="towersResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="towers-controls">
+                    <div>
+                        <!-- Zorluk Seçici -->
+                        <div class="towers-control-group">
+                            <span class="towers-label"><i class="fa-solid fa-gauge-high"></i> Zorluk Derecesi</span>
+                            <div class="towers-diff-selector">
+                                <button class="towers-diff-btn" data-diff="easy" onclick="setTowerDifficulty('easy')">
+                                    Kolay (4 Kutu)
+                                </button>
+                                <button class="towers-diff-btn active" data-diff="medium" onclick="setTowerDifficulty('medium')">
+                                    Orta (3 Kutu)
+                                </button>
+                                <button class="towers-diff-btn" data-diff="hard" onclick="setTowerDifficulty('hard')">
+                                    Zor (2 Kutu)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="towers-control-group" style="margin-top: 14px;">
+                            <span class="towers-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="towers-input-wrap">
+                                <input type="number" id="towerBetInput" value="100" min="10" step="10" oninput="onTowerBetChange()">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="towers-presets">
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('half')">½</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('double')">2X</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+
+                        <!-- Kazanç / Durum Bilgisi -->
+                        <div class="towers-profit-card" style="margin-top: 14px;">
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Mevcut Çarpan:</span>
+                                <span id="towerCurrentMult" class="towers-profit-val">1.00x</span>
+                            </div>
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Sonraki Kat:</span>
+                                <span id="towerNextMult" class="towers-profit-val">1.44x</span>
+                            </div>
+                            <div class="towers-profit-row" style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
+                                <span style="font-weight: 700;">Çekilebilir Tutar:</span>
+                                <span id="towerCashoutValue" class="towers-profit-val gold">0 🪙</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Butonlar -->
+                    <div>
+                        <button id="btnTowerStart" class="towers-action-btn" onclick="handleTowerStart()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>OYUNA BAŞLA</span>
+                        </button>
+
+                        <button id="btnTowerCashout" class="towers-action-btn towers-cashout-btn" style="display: none;" onclick="handleTowerCashout()">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <span>ÇEK: 0 🪙</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🎡 KLASİK ÇARK (WHEEL) MODAL EKRANI -->
+    <div class="modal-backdrop" id="wheelModal">
+        <div class="wheel-modal">
+            
+            <!-- Modal Başlık -->
+            <div class="crash-header">
+                <div class="crash-header-title">
+                    <span style="font-size: 22px;">🎡</span>
+                    <div>
+                        <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px;">KLASİK ÇARKIFELEK</h3>
+                        <p style="font-size: 11px; color: var(--text-muted);">Kırmızı 2x &bull; Siyah 2x &bull; Yeşil 20x</p>
+                    </div>
+                    <span class="tag" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #fbbf24;">CANLI</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeWheelModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="wheel-body">
+                
+                <!-- Sol: Çark Canvas & İğne & Geçmiş Ticker -->
+                <div class="wheel-canvas-container">
+                    <div class="wheel-history-bar" id="wheelHistoryBar">
+                        <!-- JS doldurur -->
+                    </div>
+
+                    <div class="wheel-wrapper">
+                        <div class="wheel-pointer"></div>
+                        <canvas id="wheelCanvas"></canvas>
+                        <div class="wheel-center-hub">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                    </div>
+
+                    <!-- Canlı Şık Sonuç Rozeti -->
+                    <div class="wheel-result-overlay" id="wheelResultOverlay">
+                        <!-- JS doldurur -->
+                    </div>
+                </div>
+
+                <!-- Sağ: Bahis Masası (Kırmızı, Siyah, Yeşil) -->
+                <div class="wheel-controls">
+                    <div>
+                        <div class="panel-section-title">
+                            <span>Bahis Masası</span>
+                            <span style="color: var(--gold); font-size: 10px;">🪙 Cüzdan Nakit</span>
+                        </div>
+
+                        <div class="wheel-bet-cards-grid">
+                            <!-- Kırmızı Slot -->
+                            <div class="wheel-bet-slot red-slot">
+                                <div class="wheel-slot-top">
+                                    <span class="wheel-slot-name"><i class="fa-solid fa-square" style="color: #f43f5e;"></i> KIRMIZI</span>
+                                    <span class="wheel-slot-mult">2X</span>
+                                </div>
+                                <div class="wheel-slot-input-wrap">
+                                    <input type="number" id="wheelBet_red" value="0" min="0" step="10">
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 4px;" onclick="setWheelBetAmount('red', 100)">+100</button>
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 2px;" onclick="setWheelBetAmount('red', 'clear')">✕</button>
+                                </div>
+                            </div>
+
+                            <!-- Siyah Slot -->
+                            <div class="wheel-bet-slot black-slot">
+                                <div class="wheel-slot-top">
+                                    <span class="wheel-slot-name"><i class="fa-solid fa-square" style="color: #64748b;"></i> SİYAH</span>
+                                    <span class="wheel-slot-mult">2X</span>
+                                </div>
+                                <div class="wheel-slot-input-wrap">
+                                    <input type="number" id="wheelBet_black" value="0" min="0" step="10">
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 4px;" onclick="setWheelBetAmount('black', 100)">+100</button>
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 2px;" onclick="setWheelBetAmount('black', 'clear')">✕</button>
+                                </div>
+                            </div>
+
+                            <!-- Yeşil Slot (Jackpot) -->
+                            <div class="wheel-bet-slot green-slot">
+                                <div class="wheel-slot-top">
+                                    <span class="wheel-slot-name"><i class="fa-solid fa-gem" style="color: #10b981;"></i> YEŞİL JACKPOT</span>
+                                    <span class="wheel-slot-mult" style="box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);">20X</span>
+                                </div>
+                                <div class="wheel-slot-input-wrap">
+                                    <input type="number" id="wheelBet_green" value="0" min="0" step="10">
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 4px;" onclick="setWheelBetAmount('green', 100)">+100</button>
+                                    <button class="btn-bet-preset" style="padding: 4px 8px; margin-left: 2px;" onclick="setWheelBetAmount('green', 'clear')">✕</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Çevir Butonu -->
+                    <button id="btnWheelSpin" class="btn-wheel-spin" onclick="handleWheelSpin()">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>ÇEVİR</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 5. KULE TIRMANIŞI (TOWERS CASINO) MODAL    -->
+    <!-- ========================================== -->
+    <div id="towersModal" class="modal-backdrop">
+        <div class="towers-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="towers-header">
+                <div class="towers-header-title">
+                    <span style="font-size: 22px;">🏰</span>
+                    <div>
+                        <h3>KULE TIRMANIŞI</h3>
+                        <p>Mayınlardan kaçınarak 8 katlı kulenin zirvesine tırmanın!</p>
+                    </div>
+                    <span class="tag">YENİ MOD</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeTowersModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal İçerik -->
+            <div class="towers-body">
+                
+                <!-- Sol / Kule Tahtası (8 Kat) -->
+                <div class="towers-game-container">
+                    <div class="towers-game-board" id="towerGameBoard">
+                        <!-- Dinamik Kule Katları towers.js tarafından oluşturulur -->
+                    </div>
+
+                    <!-- Modal İçi Canlı Sonuç Rozeti (Overlay) -->
+                    <div class="towers-result-overlay" id="towersResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="towers-controls">
+                    <div>
+                        <!-- Zorluk Seçici -->
+                        <div class="towers-control-group">
+                            <span class="towers-label"><i class="fa-solid fa-gauge-high"></i> Zorluk Derecesi</span>
+                            <div class="towers-diff-selector">
+                                <button class="towers-diff-btn" data-diff="easy" onclick="setTowerDifficulty('easy')">
+                                    Kolay (4 Kutu)
+                                </button>
+                                <button class="towers-diff-btn active" data-diff="medium" onclick="setTowerDifficulty('medium')">
+                                    Orta (3 Kutu)
+                                </button>
+                                <button class="towers-diff-btn" data-diff="hard" onclick="setTowerDifficulty('hard')">
+                                    Zor (2 Kutu)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="towers-control-group" style="margin-top: 14px;">
+                            <span class="towers-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="towers-input-wrap">
+                                <input type="number" id="towerBetInput" value="100" min="10" step="10" oninput="onTowerBetChange()">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="towers-presets">
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('half')">½</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('double')">2X</button>
+                                <button class="towers-preset-btn" onclick="setTowerBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+
+                        <!-- Kazanç / Durum Bilgisi -->
+                        <div class="towers-profit-card" style="margin-top: 14px;">
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Mevcut Çarpan:</span>
+                                <span id="towerCurrentMult" class="towers-profit-val">1.00x</span>
+                            </div>
+                            <div class="towers-profit-row">
+                                <span style="color: var(--text-muted);">Sonraki Kat:</span>
+                                <span id="towerNextMult" class="towers-profit-val">1.44x</span>
+                            </div>
+                            <div class="towers-profit-row" style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
+                                <span style="font-weight: 700;">Çekilebilir Tutar:</span>
+                                <span id="towerCashoutValue" class="towers-profit-val gold">0 🪙</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Butonlar -->
+                    <div>
+                        <button id="btnTowerStart" class="towers-action-btn" onclick="handleTowerStart()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>OYUNA BAŞLA</span>
+                        </button>
+
+                        <button id="btnTowerCashout" class="towers-action-btn towers-cashout-btn" style="display: none;" onclick="handleTowerCashout()">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <span>ÇEK: 0 🪙</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 6. KENO (ALTIN PİYANGO) MODAL              -->
+    <!-- ========================================== -->
+    <div id="kenoModal" class="modal-backdrop">
+        <div class="keno-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="keno-header">
+                <div class="keno-header-title">
+                    <span style="font-size: 22px;">🎱</span>
+                    <div>
+                        <h3>ALTIN KENO</h3>
+                        <p>1-40 arasından sayılarını seç, altın toplarla ikramiyeyi katla!</p>
+                    </div>
+                    <span class="tag">1000x JACKPOT</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeKenoModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="keno-body">
+                
+                <!-- Sol / 1-40 Sayı Tablası & Çarpan Cetveli -->
+                <div class="keno-game-container">
+                    <div class="keno-grid" id="kenoGrid">
+                        <!-- JS doldurur (1-40) -->
+                    </div>
+
+                    <!-- Çarpan Cetveli Ribbon -->
+                    <div class="keno-payout-ribbon" id="kenoPayoutRibbon">
+                        <!-- JS doldurur -->
+                    </div>
+
+                    <!-- Modal İçi Canlı Sonuç Rozeti -->
+                    <div class="keno-result-overlay" id="kenoResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="keno-controls">
+                    <div>
+                        <!-- Seçim Butonları -->
+                        <div class="keno-control-group">
+                            <span class="keno-label"><i class="fa-solid fa-hand-pointer"></i> Sayı Seçimi</span>
+                            <div class="keno-quick-select-grid">
+                                <button class="keno-quick-btn" onclick="kenoAutoPick()">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Rastgele 10
+                                </button>
+                                <button class="keno-quick-btn" onclick="clearKenoSelection()">
+                                    <i class="fa-solid fa-trash-can"></i> Temizle
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="keno-control-group" style="margin-top: 14px;">
+                            <span class="keno-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="keno-input-wrap">
+                                <input type="number" id="kenoBetInput" value="100" min="10" step="10" oninput="onKenoBetChange()">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="keno-presets">
+                                <button class="keno-preset-btn" onclick="setKenoBetPreset('half')">½</button>
+                                <button class="keno-preset-btn" onclick="setKenoBetPreset('double')">2X</button>
+                                <button class="keno-preset-btn" onclick="setKenoBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+
+                        <!-- Seçim / Kazanç Durum Kartı -->
+                        <div class="keno-stat-card" style="margin-top: 14px;">
+                            <div class="keno-stat-row">
+                                <span style="color: var(--text-muted);">Seçilen Sayılar:</span>
+                                <span id="kenoSelectCount" class="keno-stat-val">0 / 10</span>
+                            </div>
+                            <div class="keno-stat-row" style="margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;">
+                                <span style="font-weight: 700;">Maksimum Kazanç:</span>
+                                <span id="kenoMaxWinVal" class="keno-stat-val gold">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Çekiliş Butonu -->
+                    <div>
+                        <button id="btnKenoPlay" class="keno-action-btn" onclick="handleKenoPlay()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>ÇEKİLİŞİ BAŞLAT</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 7. LIMBO (HEDEF ÇARPAN AVCISI) MODAL       -->
+    <!-- ========================================== -->
+    <div id="limboModal" class="modal-backdrop">
+        <div class="limbo-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="limbo-header">
+                <div class="limbo-header-title">
+                    <span style="font-size: 22px;">🚀</span>
+                    <div>
+                        <h3>LIMBO ROCKET</h3>
+                        <p>Hedef çarpanı belirle, tek atışta hedefi vur!</p>
+                    </div>
+                    <span class="tag">1000X HEDEF</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeLimboModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="limbo-body">
+                
+                <!-- Sol / Limbo Gösterge Alanı -->
+                <div class="limbo-game-container">
+                    
+                    <!-- Büyük Çarpan Sonuç Ekranı -->
+                    <div class="limbo-multiplier-display" id="limboMultiplierDisplay">
+                        <span class="limbo-multiplier-val" id="limboMultiplierVal">1.00x</span>
+                    </div>
+
+                    <!-- Hedef Gösterge Rozeti -->
+                    <div class="limbo-target-badge">
+                        <span>Hedef:</span>
+                        <b id="limboTargetBadgeVal" style="color: #fb7185;">2.00x</b>
+                    </div>
+
+                    <!-- Modal İçi Sonuç Rozeti -->
+                    <div class="limbo-result-overlay" id="limboResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="limbo-controls">
+                    <div>
+                        <!-- Hedef Çarpan Girişi -->
+                        <div class="limbo-control-group">
+                            <span class="limbo-label"><i class="fa-solid fa-crosshairs"></i> Hedef Çarpan</span>
+                            <div class="limbo-target-wrap">
+                                <input type="number" id="limboTargetInput" value="2.00" min="1.05" max="1000.00" step="0.10" oninput="updateLimboUI()">
+                                <span style="color: #fb7185; font-weight: 800; font-size: 16px;">X</span>
+                            </div>
+                            <div class="limbo-target-presets">
+                                <button class="limbo-preset-btn" onclick="setLimboTargetPreset(1.50)">1.50x</button>
+                                <button class="limbo-preset-btn" onclick="setLimboTargetPreset(2.00)">2.00x</button>
+                                <button class="limbo-preset-btn" onclick="setLimboTargetPreset(5.00)">5.00x</button>
+                                <button class="limbo-preset-btn" onclick="setLimboTargetPreset(10.00)">10.00x</button>
+                            </div>
+                        </div>
+
+                        <!-- İstatistik / Oran Kartı -->
+                        <div class="limbo-stats-grid">
+                            <div class="limbo-stat-box">
+                                <span class="title">Kazanma Şansı</span>
+                                <span class="val" id="limboWinChance" style="color: #60a5fa;">%48.00</span>
+                            </div>
+                            <div class="limbo-stat-box">
+                                <span class="title">Olası Kazanç</span>
+                                <span class="val gold" id="limboProfitVal">200 🪙</span>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="limbo-control-group" style="margin-top: 14px;">
+                            <span class="limbo-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="limbo-input-wrap">
+                                <input type="number" id="limboBetInput" value="100" min="10" step="10" oninput="updateLimboUI()">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="limbo-bet-presets">
+                                <button class="limbo-preset-btn" onclick="setLimboBetPreset('half')">½</button>
+                                <button class="limbo-preset-btn" onclick="setLimboBetPreset('double')">2X</button>
+                                <button class="limbo-preset-btn" onclick="setLimboBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ateşle / Oyna Butonu -->
+                    <div>
+                        <button id="btnLimboPlay" class="limbo-action-btn" onclick="handleLimboPlay()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>ATEŞLE</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 8. CHICKEN ROAD (TRAFİK) MODAL             -->
+    <!-- ========================================== -->
+    <div id="roadModal" class="modal-backdrop">
+        <div class="road-modal">
+            
+            <!-- Modal Başlık Barı -->
+            <div class="road-header">
+                <div class="road-header-title">
+                    <span style="font-size: 22px;">🐔</span>
+                    <div>
+                        <h3>CHICKEN ROAD</h3>
+                        <p>Arabaların arasından zıplayarak karşı kaldırıma ulaş!</p>
+                    </div>
+                    <span class="tag">68X ZİRVE</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="balance-pill" style="padding: 5px 12px; font-size: 12px;">
+                        <span>🪙</span>
+                        <span class="modal-live-balance">0</span>
+                    </div>
+                    <button class="drawer-close" onclick="closeRoadModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Gövde -->
+            <div class="road-body">
+                
+                <!-- Sol / Otoyol Simülasyonu -->
+                <div class="road-game-container">
+                    <div class="highway-wrapper" id="highwayWrapper">
+                        
+                        <!-- Sol Başlangıç Kaldırımı -->
+                        <div class="sidewalk-start">
+                            <span class="sidewalk-label">BAŞLANGIÇ</span>
+                        </div>
+
+                        <!-- 8 Şerit -->
+                        <div class="highway-lanes" id="highwayLanes">
+                            <!-- JS doldurur -->
+                        </div>
+
+                        <!-- Sağ Bitiş Kaldırımı -->
+                        <div class="sidewalk-finish">
+                            <span class="sidewalk-label">BİTİŞ</span>
+                        </div>
+
+                        <!-- Karakter (Tavuk) -->
+                        <div class="chicken-actor" id="chickenActor">🐔</div>
+
+                    </div>
+
+                    <!-- Modal İçi Sonuç Rozeti -->
+                    <div class="road-result-overlay" id="roadResultOverlay"></div>
+                </div>
+
+                <!-- Sağ / Kontrol Paneli -->
+                <div class="road-controls">
+                    <div>
+                        <!-- Zorluk Seçici -->
+                        <div class="road-control-group">
+                            <span class="road-label"><i class="fa-solid fa-gauge-high"></i> Trafik Yoğunluğu</span>
+                            <div class="road-diff-selector">
+                                <button class="road-diff-btn" data-diff="easy" onclick="setRoadDifficulty('easy')">
+                                    Sakin (4.9x)
+                                </button>
+                                <button class="road-diff-btn active" data-diff="medium" onclick="setRoadDifficulty('medium')">
+                                    Orta (13.5x)
+                                </button>
+                                <button class="road-diff-btn" data-diff="hard" onclick="setRoadDifficulty('hard')">
+                                    Yoğun (68x)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bahis Miktarı -->
+                        <div class="road-control-group" style="margin-top: 14px;">
+                            <span class="road-label"><i class="fa-solid fa-coins"></i> Bahis Miktarı</span>
+                            <div class="road-input-wrap">
+                                <input type="number" id="roadBetInput" value="100" min="10" step="10">
+                                <span style="color: var(--gold); font-weight: 800; font-size: 16px;">🪙</span>
+                            </div>
+                            <div class="road-presets">
+                                <button class="road-preset-btn" onclick="setRoadBetPreset('half')">½</button>
+                                <button class="road-preset-btn" onclick="setRoadBetPreset('double')">2X</button>
+                                <button class="road-preset-btn" onclick="setRoadBetPreset('max')">MAX</button>
+                            </div>
+                        </div>
+
+                        <!-- Durum & Kazanç Kartı -->
+                        <div class="road-profit-card" style="margin-top: 14px;">
+                            <div class="road-profit-row">
+                                <span style="color: var(--text-muted);">Mevcut Çarpan:</span>
+                                <span id="roadCurrentMult" class="road-profit-val">1.00x</span>
+                            </div>
+                            <div class="road-profit-row">
+                                <span style="color: var(--text-muted);">Sonraki Şerit:</span>
+                                <span id="roadNextMult" class="road-profit-val">1.28x</span>
+                            </div>
+                            <div class="road-profit-row" style="margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
+                                <span style="font-weight: 700;">Çekilebilir Tutar:</span>
+                                <span id="roadCashoutValue" class="road-profit-val gold">0 🪙</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aksiyon Butonları -->
+                    <div>
+                        <!-- 1. Oyuna Başla -->
+                        <button id="btnRoadStart" class="road-action-btn" onclick="handleRoadStart()">
+                            <i class="fa-solid fa-play"></i>
+                            <span>YOLA ÇIK</span>
+                        </button>
+
+                        <!-- 2. Şeride İlerle (Zıpla) -->
+                        <button id="btnRoadStep" class="road-action-btn road-step-btn" style="display: none; margin-bottom: 8px;" onclick="handleRoadStep()">
+                            <i class="fa-solid fa-forward-step"></i>
+                            <span>İLERLE (ZIPLA)</span>
+                        </button>
+
+                        <!-- 3. Parayı Çek (Cashout) -->
+                        <button id="btnRoadCashout" class="road-action-btn road-cashout-btn" style="display: none;" onclick="handleRoadCashout()">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                            <span>ÇEK: 0 🪙</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ALIM / SATIM (TRADE) MODAL DIALOG -->
+    <div id="tradeModal" class="modal-backdrop">
+        <div class="trade-modal-box">
+            
+            <div class="trade-modal-header">
+                <h3 id="tradeModalTitle">Varlık İşlemi</h3>
+                <button class="modal-close-btn" onclick="closeTradeModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Bilgi / Hesaplama Kartı -->
+            <div class="trade-calc-box">
+                <div class="trade-calc-row">
+                    <span style="color: var(--text-muted);">Birim Fiyat:</span>
+                    <span id="tradeModalUnitPrice" style="font-weight: 800; color: #fff;">0 🪙</span>
+                </div>
+                <div class="trade-calc-row">
+                    <span style="color: var(--text-muted);">Toplam Tutar:</span>
+                    <span id="tradeModalTotalCost" style="font-weight: 900; color: var(--gold); font-size: 15px;">0 🪙</span>
+                </div>
+            </div>
+
+            <!-- Adet Girişi -->
+            <div>
+                <span class="road-label" style="margin-bottom: 6px;"><i class="fa-solid fa-calculator"></i> İşlem Adedi</span>
+                <div class="road-input-wrap">
+                    <input type="number" id="tradeAmountInput" value="1" min="1" step="1" oninput="updateTradeCalculation()">
+                    <span style="color: var(--text-muted); font-size: 13px; font-weight: 700;">ADET</span>
+                </div>
+                <div class="road-presets">
+                    <button class="road-preset-btn" onclick="setTradeAmountPreset('1')">1</button>
+                    <button class="road-preset-btn" onclick="setTradeAmountPreset('10')">10</button>
+                    <button class="road-preset-btn" onclick="setTradeAmountPreset('100')">100</button>
+                    <button class="road-preset-btn" onclick="setTradeAmountPreset('max')">MAX</button>
+                </div>
+            </div>
+
+            <!-- Onay Butonu -->
+            <button id="btnTradeConfirm" class="trade-btn-confirm buy" onclick="handleTradeConfirm()">
+                <i class="fa-solid fa-check"></i> Onayla
+            </button>
+
+        </div>
+    </div>
+
+    <script src="app.js?v=5"></script>
+    <script src="crash.js?v=3"></script>
+    <script src="plinko.js?v=5"></script>
+    <script src="roulette.js?v=5"></script>
+    <script src="wheel.js?v=4"></script>
+    <script src="towers.js?v=4"></script>
+    <script src="keno.js?v=4"></script>
+    <script src="limbo.js?v=2"></script>
+    <script src="road.js?v=4"></script>
+    <script src="market.js?v=2"></script>
+    <script src="shop.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,627 @@
+/* ======================================================
+   🐔 CHICKEN ROAD / OTOYOL CASINO STYLES
+   ====================================================== */
+
+.road-modal {
+    background: linear-gradient(180deg, #0e121d 0%, #090c15 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95), 0 0 50px rgba(234, 179, 8, 0.15);
+    transform: scale(0.96) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .road-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Başlık */
+.road-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #1c2235;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0b0e17;
+}
+
+.road-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.road-header-title h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.road-header-title p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.road-header-title .tag {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    color: #facc15;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Gövde */
+.road-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 520px;
+    background: #090c15;
+}
+
+@media (max-width: 860px) {
+    .road-modal {
+        max-width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 24px 24px 0 0;
+        border-bottom: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .road-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}
+
+/* Sol Alan: Otoyol Simülasyonu */
+.road-game-container {
+    background: #111622;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 16px;
+    border-right: 1px solid #1c2235;
+    overflow: hidden;
+}
+
+@media (max-width: 860px) {
+    .road-game-container {
+        border-right: none;
+        border-bottom: 1px solid #1c2235;
+        border-top: none;
+        padding: 12px 8px;
+        flex-shrink: 0;
+    }
+
+    .highway-wrapper {
+        min-height: 240px;
+        height: 240px;
+    }
+
+    .sidewalk-start, .sidewalk-finish {
+        width: 38px;
+    }
+
+    .sidewalk-label {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .chicken-avatar {
+        font-size: 20px;
+    }
+
+    .obstacle-car {
+        font-size: 16px;
+    }
+
+    .road-controls {
+        padding: 16px 14px 24px;
+        flex-grow: 1;
+    }
+
+    .road-action-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+/* Otoyol Çizgileri & Şeritler (Yatay 8 Şerit) */
+.highway-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    background: #181e2e;
+    border: 2px solid #283248;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    min-height: 380px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+/* Sol Başlangıç Kaldırımı */
+.sidewalk-start {
+    width: 60px;
+    background: #232c3f;
+    border-right: 3px solid #facc15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Sağ Bitiş Kaldırımı */
+.sidewalk-finish {
+    width: 60px;
+    background: repeating-linear-gradient(45deg, #10b981, #10b981 10px, #059669 10px, #059669 20px);
+    border-left: 3px solid #34d399;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.sidewalk-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+/* 8 Şerit Konteyneri */
+.highway-lanes {
+    flex: 1;
+    display: flex;
+    position: relative;
+}
+
+/* Tek Bir Şerit */
+.highway-lane {
+    flex: 1;
+    border-right: 1px dashed rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 2px;
+    position: relative;
+    transition: background 0.25s ease;
+}
+
+.highway-lane:last-child {
+    border-right: none;
+}
+
+.highway-lane.active-lane {
+    background: rgba(234, 179, 8, 0.08);
+}
+
+.highway-lane.cleared-lane {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.highway-lane.crashed-lane {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+/* Şerit Çarpan Rozeti */
+.lane-mult-badge {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.highway-lane.active-lane .lane-mult-badge {
+    background: #facc15;
+    color: #000;
+    border-color: #fde047;
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+    transform: scale(1.08);
+}
+
+.highway-lane.cleared-lane .lane-mult-badge {
+    background: #10b981;
+    color: #fff;
+    border-color: #34d399;
+}
+
+/* Rögar / Hedef Noktası */
+.lane-step-target {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    z-index: 3;
+}
+
+.highway-lane.active-lane .lane-step-target {
+    border-color: #facc15;
+    color: #facc15;
+    background: rgba(234, 179, 8, 0.2);
+    animation: targetPulse 1.2s infinite;
+}
+
+@keyframes targetPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(250, 204, 21, 0); }
+    50% { transform: scale(1.1); box-shadow: 0 0 14px rgba(250, 204, 21, 0.5); }
+}
+
+/* Karakter (Tavuk / Yaya) */
+.chicken-actor {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle, #facc15 30%, #eab308 100%);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(250, 204, 21, 0.6);
+    z-index: 10;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    top: 50%;
+    left: 8px; /* Kaldırımda başlar */
+    transform: translateY(-50%);
+}
+
+.chicken-actor.hop {
+    transform: translateY(-75%) scale(1.2) rotate(8deg);
+}
+
+.chicken-actor.splat {
+    background: #ef4444 !important;
+    border-color: #f87171 !important;
+    transform: translateY(-50%) scale(0.7) rotate(90deg);
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.8);
+}
+
+/* Şeritten Geçen Araba (Kamyon / Otomobil) */
+.car-obstacle {
+    position: absolute;
+    width: 46px;
+    height: 74px;
+    background: linear-gradient(180deg, #f43f5e 0%, #be123c 100%);
+    border: 2px solid #fda4af;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(244, 63, 94, 0.6);
+    z-index: 15;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -100px; /* Yolun en üstünden hızla gelir */
+    transition: top 0.28s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.car-obstacle.hit-car {
+    top: calc(50% - 37px); /* Tam tavuğun üstüne çarptığı an */
+    animation: carCrashImpact 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Çarpışma Patlaması (Duman & Kıvılcım Efekti) */
+.crash-burst-fx {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.8) 0%, rgba(245, 158, 11, 0.6) 40%, transparent 70%);
+    border-radius: 50%;
+    z-index: 20;
+    pointer-events: none;
+    animation: burstPop 0.5s ease-out forwards;
+}
+
+@keyframes burstPop {
+    0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+@keyframes carCrashImpact {
+    0% { transform: translateX(-50%) scale(0.8) translateY(-30px); }
+    40% { transform: translateX(-50%) scale(1.25) rotate(-8deg); }
+    70% { transform: translateX(-50%) scale(1.1) rotate(6deg); }
+    100% { transform: translateX(-50%) scale(1) rotate(0deg); }
+}
+
+/* Bütün Otoyolun Sarsılması Efekti */
+.highway-wrapper.shake {
+    animation: highwayShake 0.4s ease-in-out;
+}
+
+@keyframes highwayShake {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(-6px, 4px); }
+    40% { transform: translate(6px, -4px); }
+    60% { transform: translate(-4px, -2px); }
+    80% { transform: translate(4px, 2px); }
+}
+
+/* Modal İçi Bildirim Rozeti (Overlay) */
+.road-result-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(15, 18, 29, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    z-index: 40;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.road-result-overlay.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.road-result-overlay.win {
+    border-color: rgba(52, 211, 153, 0.5);
+    color: #34d399;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.road-result-overlay.lose {
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #fb7185;
+    box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
+}
+
+/* Sağ Kontrol Paneli */
+.road-controls {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    background: #090c15;
+}
+
+.road-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.road-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Zorluk Seçici (Kolay / Orta / Zor) */
+.road-diff-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #131826;
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid #1c2235;
+}
+
+.road-diff-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 9px 4px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.road-diff-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.road-diff-btn.active {
+    background: #eab308;
+    color: #000;
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.4);
+}
+
+/* Bahis Girişi */
+.road-input-wrap {
+    display: flex;
+    align-items: center;
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.road-input-wrap:focus-within {
+    border-color: #eab308;
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
+}
+
+.road-input-wrap input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    width: 100%;
+    outline: none;
+}
+
+.road-presets {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.road-preset-btn {
+    flex: 1;
+    background: #131826;
+    border: 1px solid #1c2235;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.road-preset-btn:hover {
+    background: #1e2638;
+    color: #fff;
+}
+
+/* Durum / Kazanç Kartı */
+.road-profit-card {
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.road-profit-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.road-profit-val {
+    font-weight: 800;
+    color: #fde047;
+}
+
+.road-profit-val.gold {
+    color: #fbbf24;
+    font-size: 15px;
+}
+
+/* Aksiyon Butonları */
+.road-action-btn {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    border: 1px solid #fde047;
+    color: #000;
+    padding: 15px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.35);
+    width: 100%;
+}
+
+.road-action-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(234, 179, 8, 0.55);
+    filter: brightness(1.1);
+}
+
+.road-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.road-step-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border: 1px solid #60a5fa;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+}
+
+.road-step-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 22px rgba(59, 130, 246, 0.5);
+}
+
+.road-cashout-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: 1px solid #34d399;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+}
+
+.road-cashout-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.5);
+}
+
+.road-art {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25), rgba(234, 179, 8, 0.05));
+    border: 1px solid rgba(234, 179, 8, 0.4);
+    color: #facc15;
+    text-shadow: 0 0 15px rgba(234, 179, 8, 0.6);
+}

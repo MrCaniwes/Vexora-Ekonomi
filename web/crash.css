@@ -1,0 +1,363 @@
+/* ======================================================
+   🚀 PREMIUM STAKE & ROOBET STYLE CRASH ARENA
+   ====================================================== */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 5, 10, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.modal-backdrop.active {
+    display: flex;
+    opacity: 1;
+}
+
+.crash-modal {
+    background: linear-gradient(180deg, #0e121d 0%, #090c15 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95), 0 0 50px rgba(99, 102, 241, 0.15);
+    transform: scale(0.96) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .crash-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Başlık */
+.crash-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #1c2235;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0b0e17;
+}
+
+.crash-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crash-header-title .tag {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #818cf8;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.crash-body {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    min-height: 480px;
+}
+
+@media (max-width: 840px) {
+    .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .crash-modal {
+        max-width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 24px 24px 0 0;
+        border-bottom: none;
+    }
+
+    .crash-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow-y: auto;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .crash-canvas-container {
+        min-height: 260px;
+        height: 260px;
+        flex-shrink: 0;
+        border-right: none;
+        border-bottom: 1px solid #1c2235;
+    }
+
+    .crash-controls {
+        padding: 16px 20px 24px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .crash-multiplier {
+        font-size: 52px;
+    }
+
+    .crash-status {
+        font-size: 11px;
+    }
+
+    .btn-crash-main {
+        padding: 16px;
+        font-size: 15px;
+    }
+}
+
+/* SOL: RADAR & GRAFİK ALANI */
+.crash-canvas-container {
+    background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.08) 0%, #07090f 75%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-right: 1px solid #1c2235;
+}
+
+#crashCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Üst Çarpan Geçmişi (Recent Multipliers Ticker) */
+.crash-history-bar {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.history-pill {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    background: rgba(18, 23, 36, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+}
+
+.history-pill.green {
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.3);
+}
+
+.history-pill.red {
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.2);
+}
+
+.history-pill.gold {
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.4);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+}
+
+/* Ekran Ortasındaki Çarpan */
+.crash-overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+}
+
+.crash-multiplier {
+    font-size: 68px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #ffffff;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+    transition: color 0.15s ease;
+}
+
+.crash-multiplier.crashed {
+    color: #f43f5e;
+    text-shadow: 0 0 50px rgba(244, 63, 94, 0.7);
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.crash-status {
+    font-size: 13px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 8px;
+    letter-spacing: 0.2px;
+}
+
+/* SAĞ: KONTROL PANELİ */
+.crash-controls {
+    background: #0d101a;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.panel-section-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #64748b;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bet-input-card {
+    background: #131726;
+    border: 1px solid #20273d;
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+}
+
+.bet-input-card:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.bet-input-card input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    width: 100%;
+}
+
+.quick-bets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.btn-bet-preset {
+    background: #15192a;
+    border: 1px solid #222940;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+}
+
+.btn-bet-preset:hover {
+    background: #1c2238;
+    color: #fff;
+    border-color: #374151;
+}
+
+/* Kasa & Oran Bilgi Kartı */
+.game-stats-box {
+    background: #111422;
+    border: 1px solid #1c2236;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 24px;
+    font-size: 11px;
+    color: #8b949e;
+}
+
+.game-stats-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+
+/* Büyük Aksiyon Butonu */
+.btn-crash-main {
+    width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.btn-crash-main.start {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    box-shadow: 0 10px 30px -8px rgba(16, 185, 129, 0.5);
+}
+
+.btn-crash-main.start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 35px -8px rgba(16, 185, 129, 0.6);
+}
+
+.btn-crash-main.cashout {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    color: #fff;
+    box-shadow: 0 10px 30px -8px rgba(245, 158, 11, 0.6);
+    animation: cashoutPulse 1.2s infinite alternate;
+}
+
+@keyframes cashoutPulse {
+    0% { transform: scale(1); filter: brightness(1); }
+    100% { transform: scale(1.02); filter: brightness(1.15); box-shadow: 0 12px 40px -6px rgba(245, 158, 11, 0.8); }
+}
+
+.btn-crash-main:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}

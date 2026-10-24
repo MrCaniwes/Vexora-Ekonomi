@@ -1,0 +1,513 @@
+/* ======================================================
+   🏰 TOWERS (KULE TIRMANIŞI) CASINO STYLES
+   ====================================================== */
+
+.towers-modal {
+    background: linear-gradient(180deg, #0e121d 0%, #090c15 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.95), 0 0 50px rgba(59, 130, 246, 0.15);
+    transform: scale(0.96) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .towers-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Başlık Barı */
+.towers-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #1c2235;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0b0e17;
+}
+
+.towers-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.towers-header-title h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.towers-header-title p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.towers-header-title .tag {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Modal Gövde */
+.towers-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 520px;
+    background: #090c15;
+}
+
+@media (max-width: 860px) {
+    .towers-modal {
+        max-width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 24px 24px 0 0;
+        border-bottom: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .towers-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}
+
+/* Sol / Kule Alanı (Grid) */
+.towers-game-container {
+    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, #07090f 80%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    border-right: 1px solid #1c2235;
+    overflow: hidden;
+}
+
+@media (max-width: 860px) {
+    .towers-game-container {
+        border-right: none;
+        border-bottom: 1px solid #1c2235;
+        border-top: none;
+        padding: 14px 10px;
+        flex-shrink: 0;
+    }
+
+    .towers-game-board {
+        gap: 5px;
+        max-width: 100%;
+    }
+
+    .tower-floor-row {
+        gap: 4px;
+    }
+
+    .tower-multiplier-badge {
+        font-size: 10px;
+        min-width: 48px;
+        padding: 2px 4px;
+    }
+
+    .tower-tile {
+        height: 38px;
+        font-size: 13px;
+    }
+
+    .towers-controls {
+        padding: 16px 14px 24px;
+        flex-grow: 1;
+    }
+
+    .towers-action-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+.towers-game-board {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Kat Satırı */
+.tower-floor-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tower-floor-row.active {
+    background: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.tower-floor-row.cleared {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.tower-floor-mult {
+    flex: 0 0 68px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-align: right;
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+}
+
+.tower-floor-row.active .tower-floor-mult {
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+}
+
+.tower-floor-row.cleared .tower-floor-mult {
+    color: #34d399;
+}
+
+/* Kutular Konteyneri */
+.tower-tiles-container {
+    flex: 1;
+    display: grid;
+    gap: 8px;
+}
+
+.tower-tiles-container.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.tower-tiles-container.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tower-tiles-container.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Kule Kutusu */
+.tower-tile {
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #475569;
+    cursor: not-allowed;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    outline: none;
+}
+
+/* Aktif kattaki tıklanabilir kutular */
+.tower-floor-row.active .tower-tile {
+    cursor: pointer;
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #93c5fd;
+}
+
+.tower-floor-row.active .tower-tile:hover {
+    transform: translateY(-2px) scale(1.04);
+    background: rgba(59, 130, 246, 0.35);
+    border-color: #60a5fa;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+    color: #fff;
+}
+
+/* Açılmış Güvenli Kutu */
+.tower-tile.safe {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25)) !important;
+    border-color: #34d399 !important;
+    color: #34d399 !important;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    animation: tilePop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Açılmış Mayın Kutusu */
+.tower-tile.mine {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(185, 28, 28, 0.35)) !important;
+    border-color: #f87171 !important;
+    color: #f87171 !important;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.55);
+    animation: tileShake 0.4s ease-in-out;
+}
+
+/* Oyun bittiğinde ifşa olan mayınlar */
+.tower-tile.mine-revealed {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: rgba(248, 113, 113, 0.6) !important;
+}
+
+/* Modal İçi Canlı Sonuç / Bildirim Rozeti (Overlay) */
+.towers-result-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(15, 18, 29, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    z-index: 40;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.towers-result-overlay.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.towers-result-overlay.win {
+    border-color: rgba(52, 211, 153, 0.5);
+    color: #34d399;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+.towers-result-overlay.lose {
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #fb7185;
+    box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
+}
+
+.towers-result-overlay.info {
+    border-color: rgba(96, 165, 250, 0.5);
+    color: #60a5fa;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes tilePop {
+    0% { transform: scale(0.85); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tileShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+/* Sağ / Kontrol Paneli */
+.towers-controls {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    background: #090c15;
+}
+
+.towers-control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.towers-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Zorluk Seçici */
+.towers-diff-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #131826;
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid #1c2235;
+}
+
+.towers-diff-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 9px 4px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.towers-diff-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.towers-diff-btn.active {
+    background: #3b82f6;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Bahis Girişi */
+.towers-input-wrap {
+    display: flex;
+    align-items: center;
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.towers-input-wrap:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+}
+
+.towers-input-wrap input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    width: 100%;
+    outline: none;
+}
+
+.towers-presets {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.towers-preset-btn {
+    flex: 1;
+    background: #131826;
+    border: 1px solid #1c2235;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.towers-preset-btn:hover {
+    background: #1e2638;
+    color: #fff;
+}
+
+/* Durum / Kazanç Kartı */
+.towers-profit-card {
+    background: #131826;
+    border: 1px solid #1c2235;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.towers-profit-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.towers-profit-val {
+    font-weight: 800;
+    color: #60a5fa;
+}
+
+.towers-profit-val.gold {
+    color: #fbbf24;
+    font-size: 15px;
+}
+
+/* Aksiyon Butonları */
+.towers-action-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border: 1px solid #60a5fa;
+    color: #fff;
+    padding: 15px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+    width: 100%;
+}
+
+.towers-action-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(59, 130, 246, 0.5);
+    filter: brightness(1.1);
+}
+
+.towers-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+}
+
+.towers-cashout-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: 1px solid #34d399;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+}
+
+.towers-cashout-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.5);
+}
