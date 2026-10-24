@@ -1578,6 +1578,37 @@ function startWebServer(client) {
         const meslek = envanter.find(e => e.kategori === 'meslekler');
         const meslekId = meslek ? meslek.id : 'issiz';
 
+        // Mesleklere Özel Başarısızlık Mesajları (Discord ile birebir aynı)
+        const hataMesajlari = {
+            'issiz': ['Gitarının teli koptu, günü boşa harcadın.', 'Zabıta kovaladı, bütün gün kaçtın.', 'Dağıttığın broşürleri rüzgar uçurdu.'],
+            'koylu': ['Traktör bozuldu, tarlada mahsur kaldın.', 'Kargalar bütün ekinleri yedi.', 'İnek seni tekmeledi, yevmiye yattı.'],
+            'torbaci': ['Sivil polise denk geldin, malı bırakıp zar zor kaçtın.', 'Müşteri parayı vermeden kaçtı.', 'Rakip çete yolunu kesti, günü zararla kapattın.'],
+            'garson': ['Müşterinin üstüne sıcak çorba döktün, yevmiyen kesildi.', 'Tepsiyi düşürüp bütün bardakları kırdın.', 'Müşteriyle kavga ettin, patron yevmiyene el koydu.'],
+            'kurye': ['Paketi yanlış adrese teslim ettin, patron çıldırdı.', 'Motordan düştün, pizzalar ezildi.', 'Trafik polisine yakalandın, bütün günün boşa gitti.'],
+            'yazilimci': ['Yanlışlıkla üretim veritabanını (Production DB) sildin!', 'Yazdığın kod yüzünden sunucular çöktü.', 'Bütün gün hata (bug) aradın ama noktalı virgülü bulamadın.'],
+            'doktor': ['Yanlış teşhis koydun, hasta yakınları hastaneyi bastı.', 'Ameliyatta neşteri içeride unuttun.', 'Nöbette uyuya kaldın, maaşından kesinti yapıldı.'],
+            'pilot': ['Yanlış piste inmeye çalıştın, uçuş lisansın tehlikede.', 'Uçakta kahveni kontrol paneline döktün.', 'Yanlış anons yaptın, yolcular panik çıkardı.'],
+            'mimar': ['Çizdiğin bina yamuk oldu, proje iptal edildi.', 'Bütçeyi yanlış hesapladın, ihale elden gitti.', 'Şantiyede kafana tuğla düştü, hastanelik oldun.'],
+            'ceo': ['Yanlış yatırım kararı şirketi zarara soktu.', 'Canlı yayında pot kırdın, hisseler çakıldı.', 'Vergi müfettişleri baskın yaptı, günü zararla kapattın.'],
+            'sirket_sahibi': ['En büyük ihaleyi rakip holdinge kaptırdın.', 'Asistanın milyonluk sözleşmeyi çöpe attı.', 'Borsada büyük manipülasyona kurban gittin.']
+        };
+
+        const kaderPuani = getKaderPuani(userId);
+        const riskLimiti = Math.min(0.50, Math.max(0.02, 0.20 - (kaderPuani * PUAN_BASINA_SANS)));
+        const guncelBakiyeAnlik = ecoDb.bul(`cuzdan_${userId}`) || 0;
+
+        // %20 Risk Oranı (Dua / Lanet Puanı etkiler)
+        if (guncelBakiyeAnlik > 0 && Math.random() < riskLimiti) {
+            const kullaniciHatalari = hataMesajlari[meslekId] || hataMesajlari['issiz'];
+            const secilenHata = kullaniciHatalari[Math.floor(Math.random() * kullaniciHatalari.length)];
+            cooldownDb.ayarla(cooldownKey, now);
+
+            return res.json({
+                success: false,
+                error: `⚠️ İşler Ters Gitti! ${secilenHata} (Kazanç: 0 🪙)`
+            });
+        }
+
         let temelMaas = Math.floor(Math.random() * (750 - 250 + 1)) + 250;
         if (meslekId === 'issiz') {
             temelMaas = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
