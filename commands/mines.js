@@ -177,6 +177,11 @@ module.exports = {
                     // Kaybetti
                     oyunBitti = true;
                     collector.stop('kaybetti');
+                    const minesRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+                    if (minesRemBal === 0) {
+                        const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                        canliDurumIflasBildir({ userId, oyunAdi: 'Mayın Tarlası', kaybedilenBahis: bahis, kaynak: 'discord' });
+                    }
                     await i.update({ components: [generateContainer('kaybetti', carpan)], flags: MessageFlags.IsComponentsV2 });
                 } else {
                     // Elmas buldu

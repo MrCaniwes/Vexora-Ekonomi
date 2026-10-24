@@ -143,6 +143,11 @@ module.exports = {
             canliDurumBildir({ userId, oyunAdi: 'At Yarışı', bahis, kazanc: odul, carpan: 3, kaynak: 'discord' });
         } else {
             sonucMesaji += `❌ **Kaybettin!** Seçtiğin at (${secilenAt}) yarışı kazanamadı. (-${bahis.toLocaleString()} 🪙)`;
+            const horseRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+            if (horseRemBal === 0) {
+                const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                canliDurumIflasBildir({ userId, oyunAdi: 'At Yarışı', kaybedilenBahis: bahis, kaynak: 'discord' });
+            }
         }
 
         const guncelBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;

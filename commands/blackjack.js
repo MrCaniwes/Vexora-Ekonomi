@@ -222,6 +222,11 @@ module.exports = {
                 } else if (oyuncuPuan < botPuan) {
                     durum = 'kaybetti';
                     aciklamaMesaji = `❌ **Kaybettin!** (-${bahis.toLocaleString()} 🪙)`;
+                    const bjRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+                    if (bjRemBal === 0) {
+                        const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                        canliDurumIflasBildir({ userId, oyunAdi: 'Blackjack', kaybedilenBahis: bahis, kaynak: 'discord' });
+                    }
                 } else {
                     durum = 'berabere';
                     aciklamaMesaji = `🤝 **Berabere!** (İade: +${bahis.toLocaleString()} 🪙)`;

@@ -125,6 +125,12 @@ module.exports = {
                     ecoDb.ekle(`cuzdan_${userId}`, bahis * 2); // Kazandıysa bahsin iki katını geri ver
                     const { canliDurumBildir } = require('../utils/canliDurum');
                     canliDurumBildir({ userId, oyunAdi: 'Yazı Tura (Coinflip)', bahis, kazanc: bahis * 2, carpan: 2, kaynak: 'discord' });
+                } else {
+                    const cfRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+                    if (cfRemBal === 0) {
+                        const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                        canliDurumIflasBildir({ userId, oyunAdi: 'Yazı Tura (Coinflip)', kaybedilenBahis: bahis, kaynak: 'discord' });
+                    }
                 }
                 
                 await interaction.editReply({ 

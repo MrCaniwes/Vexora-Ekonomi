@@ -204,6 +204,11 @@ module.exports = {
                 oyunBitti = true;
                 durum = 'kaybetti';
                 collector.stop();
+                const hlRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+                if (hlRemBal === 0) {
+                    const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                    canliDurumIflasBildir({ userId, oyunAdi: 'Yüksek / Düşük (HighLow)', kaybedilenBahis: bahis, kaynak: 'discord' });
+                }
                 await i.update({ components: [generateContainer()], flags: MessageFlags.IsComponentsV2 });
             }
         });

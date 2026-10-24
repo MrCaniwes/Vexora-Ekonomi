@@ -139,6 +139,12 @@ module.exports = {
             ecoDb.ekle(`cuzdan_${userId}`, kazanc);
             const { canliDurumBildir } = require('../utils/canliDurum');
             canliDurumBildir({ userId, oyunAdi: 'Slot', bahis, kazanc, carpan, kaynak: 'discord' });
+        } else {
+            const slotRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+            if (slotRemBal === 0) {
+                const { canliDurumIflasBildir } = require('../utils/canliDurum');
+                canliDurumIflasBildir({ userId, oyunAdi: 'Slot', kaybedilenBahis: bahis, kaynak: 'discord' });
+            }
         }
         await interaction.editReply({ components: [generateContainer(4)], flags: MessageFlags.IsComponentsV2 }).catch(() => {});
     },

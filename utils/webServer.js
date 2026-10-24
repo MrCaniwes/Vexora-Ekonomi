@@ -8,7 +8,7 @@ const { getKaderPuani, PUAN_BASINA_SANS } = require('../utils/kaderUtils');
 const { getAktifTilsimlar } = require('../utils/tilsimUtils');
 const { VARLIKLAR, piyasayiGetir } = require('../utils/borsaSistemi');
 const { ekleTilsim } = require('../utils/tilsimUtils');
-const { canliDurumBildir } = require('../utils/canliDurum');
+const { canliDurumBildir, canliDurumIflasBildir } = require('../utils/canliDurum');
 const fs = require('fs');
 
 // Aktif Crash Oyunları Hafızası (In-Memory)
@@ -263,7 +263,11 @@ function startWebServer(client) {
             canliDurumBildir({ userId, oyunAdi: 'Plinko', bahis, kazanc, carpan: multiplier, kaynak: 'web' });
         }
 
-        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        // 1. PLINKO
+        const plinkoBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (plinkoBakiye === 0 && kazanc === 0) {
+            canliDurumIflasBildir({ userId, oyunAdi: 'Plinko', kaybedilenBahis: bahis, kaynak: 'web' });
+        }
 
         res.json({
             success: true,
@@ -273,7 +277,7 @@ function startWebServer(client) {
             kazanc,
             bahis,
             risk,
-            yeniBakiye
+            yeniBakiye: plinkoBakiye
         });
     });
 
@@ -381,7 +385,11 @@ function startWebServer(client) {
         rouletteHistory.unshift({ num: winningNumber, color: winningColor });
         if (rouletteHistory.length > 15) rouletteHistory.pop();
 
-        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        // 🎡 Rulet
+        const rouletteBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (rouletteBakiye === 0 && totalWin === 0) {
+            canliDurumIflasBildir({ userId, oyunAdi: 'Avrupa Ruleti', kaybedilenBahis: totalBet, kaynak: 'web' });
+        }
 
         res.json({
             success: true,
@@ -390,7 +398,7 @@ function startWebServer(client) {
             winningColor,
             totalBet,
             totalWin,
-            yeniBakiye,
+            yeniBakiye: rouletteBakiye,
             slotAngle: 360 / ROULETTE_WHEEL_NUMBERS.length
         });
     });
@@ -453,7 +461,11 @@ function startWebServer(client) {
         wheelHistory.unshift(winningColor);
         if (wheelHistory.length > 15) wheelHistory.pop();
 
-        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        // 🎡 Klasik Çark
+        const wheelBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (wheelBakiye === 0 && totalWin === 0) {
+            canliDurumIflasBildir({ userId, oyunAdi: 'Klasik Çark', kaybedilenBahis: totalBet, kaynak: 'web' });
+        }
 
         res.json({
             success: true,
@@ -549,6 +561,10 @@ function startWebServer(client) {
         // Eğer roket çoktan patladıysa
         if (currentMultiplier >= game.crashPoint) {
             activeCrashGames.delete(userId);
+            const crashRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+            if (crashRemBal === 0) {
+                canliDurumIflasBildir({ userId, oyunAdi: 'Crash Arena', kaybedilenBahis: game.bahis, kaynak: 'web' });
+            }
             return res.json({
                 success: false,
                 crashed: true,
@@ -712,6 +728,11 @@ function startWebServer(client) {
             game.active = false;
             activeTowerGames.delete(userId);
 
+            const towerRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+            if (towerRemBal === 0) {
+                canliDurumIflasBildir({ userId, oyunAdi: 'Kule Tırmanışı', kaybedilenBahis: game.bet, kaynak: 'web' });
+            }
+
             return res.json({
                 success: true,
                 hitMine: true,
@@ -857,6 +878,11 @@ function startWebServer(client) {
             canliDurumBildir({ userId, oyunAdi: 'Altın Keno', bahis, kazanc, carpan: multiplier, kaynak: 'web' });
         }
 
+        const kenoRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (kenoRemBal === 0 && kazanc === 0) {
+            canliDurumIflasBildir({ userId, oyunAdi: 'Altın Keno', kaybedilenBahis: bahis, kaynak: 'web' });
+        }
+
         res.json({
             success: true,
             bet: bahis,
@@ -923,6 +949,11 @@ function startWebServer(client) {
             kazanc = Math.floor(bahis * targetMultiplier);
             ecoDb.ekle(`cuzdan_${userId}`, kazanc);
             canliDurumBildir({ userId, oyunAdi: 'Limbo Rocket', bahis, kazanc, carpan: targetMultiplier, kaynak: 'web' });
+        }
+
+        const limboRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (limboRemBal === 0 && !isWin) {
+            canliDurumIflasBildir({ userId, oyunAdi: 'Limbo Rocket', kaybedilenBahis: bahis, kaynak: 'web' });
         }
 
         res.json({
@@ -1041,6 +1072,11 @@ function startWebServer(client) {
             // 💥 ARABA ÇARPTI! Oyun bitti.
             game.active = false;
             activeRoadGames.delete(userId);
+
+            const roadRemBal = ecoDb.bul(`cuzdan_${userId}`) || 0;
+            if (roadRemBal === 0) {
+                canliDurumIflasBildir({ userId, oyunAdi: 'Chicken Road', kaybedilenBahis: game.bet, kaynak: 'web' });
+            }
 
             return res.json({
                 success: true,
