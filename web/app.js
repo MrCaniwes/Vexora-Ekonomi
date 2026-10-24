@@ -146,10 +146,10 @@ async function loadUserData() {
                 <span class="currency">VEX</span>
             </div>
 
-            <div class="profile-pill" onclick="toggleProfileDrawer()">
+            <div class="profile-pill" onclick="switchTab('profile')">
                 <img src="${u.avatar}" alt="Avatar">
                 <span class="user-name">${u.name}</span>
-                <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: var(--text-muted);"></i>
+                <i class="fa-solid fa-chevron-right" style="font-size: 10px; color: var(--text-muted);"></i>
             </div>
         `;
 
