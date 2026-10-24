@@ -202,11 +202,13 @@ function switchTab(tabName) {
     const lbContent = document.getElementById('tabContentLeaderboard');
     const marketContent = document.getElementById('tabContentMarket');
     const shopContent = document.getElementById('tabContentShop');
+    const profileContent = document.getElementById('tabContentProfile');
 
     if (gamesContent) gamesContent.style.display = 'none';
     if (lbContent) lbContent.style.display = 'none';
     if (marketContent) marketContent.style.display = 'none';
     if (shopContent) shopContent.style.display = 'none';
+    if (profileContent) profileContent.style.display = 'none';
 
     if (tabName === 'games') {
         const btn = document.getElementById('tabBtnGames');
@@ -224,11 +226,17 @@ function switchTab(tabName) {
         fetchMarketData();
     } else if (tabName === 'shop') {
         const btn = document.getElementById('tabBtnShop');
-        const shopContent = document.getElementById('tabContentShop');
         if (btn) btn.classList.add('active');
         if (shopContent) shopContent.style.display = 'block';
         if (typeof fetchShopData === 'function') {
             fetchShopData();
+        }
+    } else if (tabName === 'profile') {
+        const btn = document.getElementById('tabBtnProfile');
+        if (btn) btn.classList.add('active');
+        if (profileContent) profileContent.style.display = 'block';
+        if (typeof loadProfilePage === 'function') {
+            loadProfilePage();
         }
     }
 }

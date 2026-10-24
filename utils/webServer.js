@@ -3,9 +3,9 @@ const cookieParser = require('cookie-parser');
 const axios = require('axios');
 const path = require('path');
 const crypto = require('crypto');
-const { ecoDb, userDb } = require('../utils/db');
+const { ecoDb, userDb, cooldownDb } = require('../utils/db');
 const { getKaderPuani, PUAN_BASINA_SANS } = require('../utils/kaderUtils');
-const { getAktifTilsimlar } = require('../utils/tilsimUtils');
+const { getAktifTilsimlar, checkTilsim } = require('../utils/tilsimUtils');
 const { VARLIKLAR, piyasayiGetir } = require('../utils/borsaSistemi');
 const { ekleTilsim } = require('../utils/tilsimUtils');
 const { canliDurumBildir, canliDurumIflasBildir } = require('../utils/canliDurum');
@@ -1464,6 +1464,261 @@ function startWebServer(client) {
             success: true,
             message: `Tebrikler! ${urun.fiyat.toLocaleString()} 🪙 ödeyerek "${urun.isim}" satın aldınız!${ekstraMesaj}`,
             yeniBakiye: ecoDb.bul(`cuzdan_${userId}`) || 0
+        });
+    });
+
+    // ==========================================
+    // 👤 PROFİL PANELİ: ÇALIŞ, TOPLA & YÜKSELT
+    // ==========================================
+    const WORK_COOLDOWN_MS = 10 * 60 * 1000; // 10 dakika
+
+    const SEVIYE_TABLOSU_WEB = {
+        1: { sonrakiMaliyetKatsayi: 0.6, gelirKatsayi: 1.0 },
+        2: { sonrakiMaliyetKatsayi: 1.2, gelirKatsayi: 1.75 },
+        3: { sonrakiMaliyetKatsayi: 2.0, gelirKatsayi: 2.5 },
+        4: { sonrakiMaliyetKatsayi: 3.5, gelirKatsayi: 3.5 },
+        5: { sonrakiMaliyetKatsayi: null, gelirKatsayi: 5.0 }
+    };
+
+    // Profil Durumu & Cooldown Sorgusu
+    app.get('/api/profile/status', (req, res) => {
+        const sessionUser = getAuthUser(req);
+        if (!sessionUser) return res.status(401).json({ error: 'Oturum bulunamadı' });
+
+        const userId = sessionUser.id;
+        const lastWork = cooldownDb.bul(`calis_${userId}`);
+        const now = Date.now();
+
+        let canWork = true;
+        let workRemainingSec = 0;
+
+        if (lastWork && now < lastWork + WORK_COOLDOWN_MS) {
+            canWork = false;
+            workRemainingSec = Math.ceil((lastWork + WORK_COOLDOWN_MS - now) / 1000);
+        }
+
+        // Biriken Hasılatı Hesapla
+        const envanter = userDb.bul(`envanter_${userId}`) || [];
+        const yatirimlar = envanter.filter(e => e.kategori === 'yatirimlar');
+        const sonToplama = cooldownDb.bul(`topla_${userId}`) || now;
+        
+        let gecenMs = now - sonToplama;
+        const MAX_SURE = 24 * 60 * 60 * 1000;
+        if (gecenMs > MAX_SURE) gecenMs = MAX_SURE;
+        const gecenSaat = gecenMs / (1000 * 60 * 60);
+
+        const shopPath = path.join(__dirname, '..', 'config', 'shop.json');
+        let shopData = { yatirimlar: [] };
+        try {
+            shopData = JSON.parse(fs.readFileSync(shopPath, 'utf8'));
+        } catch {}
+
+        let toplamHasilat = 0;
+        for (const y of yatirimlar) {
+            const veri = shopData.yatirimlar.find(s => s.id === y.id);
+            if (veri && veri.saatlikGelir) {
+                const seviye = y.seviye || 1;
+                const carpan = (SEVIYE_TABLOSU_WEB[seviye] && SEVIYE_TABLOSU_WEB[seviye].gelirKatsayi) || 1.0;
+                toplamHasilat += veri.saatlikGelir * carpan * gecenSaat;
+            }
+        }
+
+        const bereket = checkTilsim(userId, 'gelir');
+        if (bereket) {
+            toplamHasilat *= (1 + (bereket.bonusYuzde / 100));
+        }
+
+        res.json({
+            canWork,
+            workRemainingSec,
+            isletmeSayisi: yatirimlar.length,
+            hasilat: Math.floor(toplamHasilat)
+        });
+    });
+
+    // 💼 Web'den Çalış (Mesai)
+    app.post('/api/profile/work', (req, res) => {
+        const sessionUser = getAuthUser(req);
+        if (!sessionUser) return res.status(401).json({ error: 'Lütfen giriş yapın!' });
+
+        const userId = sessionUser.id;
+        const cooldownKey = `calis_${userId}`;
+        const lastWork = cooldownDb.bul(cooldownKey);
+        const now = Date.now();
+
+        if (lastWork && now < lastWork + WORK_COOLDOWN_MS) {
+            const kalanDakika = Math.ceil((lastWork + WORK_COOLDOWN_MS - now) / 60000);
+            return res.status(400).json({ error: `Henüz çok yorgunsunuz! ${kalanDakika} dakika sonra tekrar çalışabilirsiniz.` });
+        }
+
+        const envanter = userDb.bul(`envanter_${userId}`) || [];
+        const meslek = envanter.find(e => e.kategori === 'meslekler');
+        const meslekId = meslek ? meslek.id : 'issiz';
+
+        let temelMaas = Math.floor(Math.random() * (750 - 250 + 1)) + 250;
+        if (meslekId === 'issiz') {
+            temelMaas = Math.floor(Math.random() * (150 - 50 + 1)) + 50;
+        }
+
+        let bonusPara = 0;
+        if (meslek && meslek.bonusYuzdesi) {
+            bonusPara = Math.floor(temelMaas * (meslek.bonusYuzdesi / 100));
+        }
+
+        const bereket = checkTilsim(userId, 'gelir');
+        let tilsimBonus = 0;
+        if (bereket) {
+            tilsimBonus = Math.floor(temelMaas * (bereket.bonusYuzde / 100));
+        }
+
+        let mevcutXp = userDb.bul(`xp_${userId}`) || 0;
+        const kazanilanXp = Math.floor(Math.random() * (25 - 15 + 1)) + 15;
+        mevcutXp += kazanilanXp;
+        userDb.ayarla(`xp_${userId}`, mevcutXp);
+
+        let mevcutLevel = Math.floor(Math.sqrt(mevcutXp / 350)) + 1;
+        if (mevcutLevel > 5) mevcutLevel = 5;
+
+        const levelBonus = Math.floor(temelMaas * ((mevcutLevel - 1) * 0.025));
+
+        const evlilikVerisi = userDb.bul(`evlilik_${userId}`);
+        let evlilikBonus = 0;
+        if (evlilikVerisi && evlilikVerisi.yuzuk) {
+            evlilikBonus = Math.floor(temelMaas * (evlilikVerisi.yuzuk.bonusYuzdesi / 100));
+        }
+
+        const toplamKazanc = temelMaas + bonusPara + tilsimBonus + levelBonus + evlilikBonus;
+
+        ecoDb.ekle(`cuzdan_${userId}`, toplamKazanc);
+        cooldownDb.ayarla(cooldownKey, now);
+
+        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+
+        res.json({
+            success: true,
+            kazanc: toplamKazanc,
+            xp: kazanilanXp,
+            yeniBakiye,
+            message: `Mesai tamamlandı! +${toplamKazanc.toLocaleString()} 🪙 kazandınız (+${kazanilanXp} XP)`
+        });
+    });
+
+    // 🏢 Web'den Hasılat Topla
+    app.post('/api/profile/collect', (req, res) => {
+        const sessionUser = getAuthUser(req);
+        if (!sessionUser) return res.status(401).json({ error: 'Lütfen giriş yapın!' });
+
+        const userId = sessionUser.id;
+        const envanter = userDb.bul(`envanter_${userId}`) || [];
+        const yatirimlar = envanter.filter(e => e.kategori === 'yatirimlar');
+
+        if (yatirimlar.length === 0) {
+            return res.status(400).json({ error: 'Toplanacak hiçbir işletmeniz yok! Mağazadan satın alabilirsiniz.' });
+        }
+
+        const sonToplama = cooldownDb.bul(`topla_${userId}`);
+        const now = Date.now();
+
+        if (!sonToplama) {
+            cooldownDb.ayarla(`topla_${userId}`, now);
+            return res.status(400).json({ error: 'İşletmeleriniz yeni açıldı! Kasada para birikmesi için biraz zaman geçmeli.' });
+        }
+
+        let gecenMs = now - sonToplama;
+        const MAX_SURE = 24 * 60 * 60 * 1000;
+        if (gecenMs > MAX_SURE) gecenMs = MAX_SURE;
+        const gecenSaat = gecenMs / (1000 * 60 * 60);
+
+        const shopPath = path.join(__dirname, '..', 'config', 'shop.json');
+        let shopData = { yatirimlar: [] };
+        try {
+            shopData = JSON.parse(fs.readFileSync(shopPath, 'utf8'));
+        } catch {}
+
+        let toplamHasilat = 0;
+        for (const y of yatirimlar) {
+            const veri = shopData.yatirimlar.find(s => s.id === y.id);
+            if (veri && veri.saatlikGelir) {
+                const seviye = y.seviye || 1;
+                const carpan = (SEVIYE_TABLOSU_WEB[seviye] && SEVIYE_TABLOSU_WEB[seviye].gelirKatsayi) || 1.0;
+                toplamHasilat += veri.saatlikGelir * carpan * gecenSaat;
+            }
+        }
+
+        const bereket = checkTilsim(userId, 'gelir');
+        if (bereket) {
+            toplamHasilat *= (1 + (bereket.bonusYuzde / 100));
+        }
+
+        const kazanilanPara = Math.floor(toplamHasilat);
+
+        if (kazanilanPara < 1) {
+            return res.status(400).json({ error: 'Kasada henüz toplanacak kadar para (1 🪙) birikmedi. Lütfen biraz bekleyin!' });
+        }
+
+        ecoDb.ekle(`cuzdan_${userId}`, kazanilanPara);
+        cooldownDb.ayarla(`topla_${userId}`, now);
+
+        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+
+        res.json({
+            success: true,
+            toplanan: kazanilanPara,
+            yeniBakiye,
+            message: `İşletmelerinizden +${kazanilanPara.toLocaleString()} 🪙 hasılat toplandı!`
+        });
+    });
+
+    // ⬆️ Web'den İşletme Seviyesi Yükselt (Upgrade)
+    app.post('/api/profile/upgrade', (req, res) => {
+        const sessionUser = getAuthUser(req);
+        if (!sessionUser) return res.status(401).json({ error: 'Lütfen giriş yapın!' });
+
+        const userId = sessionUser.id;
+        const { isletmeId } = req.body;
+        if (!isletmeId) return res.status(400).json({ error: 'İşletme ID gereklidir!' });
+
+        const envanter = userDb.bul(`envanter_${userId}`) || [];
+        const item = envanter.find(e => e.kategori === 'yatirimlar' && e.id === isletmeId);
+
+        if (!item) {
+            return res.status(400).json({ error: 'Bu işletmeye sahip değilsiniz!' });
+        }
+
+        const shopPath = path.join(__dirname, '..', 'config', 'shop.json');
+        let shopData = { yatirimlar: [] };
+        try {
+            shopData = JSON.parse(fs.readFileSync(shopPath, 'utf8'));
+        } catch {}
+
+        const veri = shopData.yatirimlar.find(s => s.id === isletmeId);
+        if (!veri) return res.status(400).json({ error: 'İşletme verisi bulunamadı!' });
+
+        const mevcutSeviye = item.seviye || 1;
+        if (mevcutSeviye >= 5) {
+            return res.status(400).json({ error: 'Bu işletme zaten maksimum seviyede (Level 5)!' });
+        }
+
+        const tab = SEVIYE_TABLOSU_WEB[mevcutSeviye];
+        const maliyet = Math.floor(veri.fiyat * tab.sonrakiMaliyetKatsayi);
+
+        const bakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+        if (bakiye < maliyet) {
+            return res.status(400).json({ error: `Yetersiz bakiye! Yükseltme için ${maliyet.toLocaleString()} 🪙 gerekiyor.` });
+        }
+
+        ecoDb.cikar(`cuzdan_${userId}`, maliyet);
+        item.seviye = mevcutSeviye + 1;
+        userDb.ayarla(`envanter_${userId}`, envanter);
+
+        const yeniBakiye = ecoDb.bul(`cuzdan_${userId}`) || 0;
+
+        res.json({
+            success: true,
+            yeniSeviye: item.seviye,
+            maliyet,
+            yeniBakiye,
+            message: `Tebrikler! ${veri.isim} Level ${item.seviye}'e yükseltildi!`
         });
     });
 

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="road.css?v=5">
     <link rel="stylesheet" href="market.css?v=2">
     <link rel="stylesheet" href="shop.css?v=2">
+    <link rel="stylesheet" href="profile.css?v=1">
 </head>
 <body>
 
@@ -66,6 +67,10 @@
                 <button onclick="switchTab('shop')" id="tabBtnShop" class="btn-nav">
                     <i class="fa-solid fa-bag-shopping" style="color: #10b981;"></i>
                     <span>Mağaza</span>
+                </button>
+                <button onclick="switchTab('profile')" id="tabBtnProfile" class="btn-nav">
+                    <i class="fa-solid fa-user-astronaut" style="color: #a855f7;"></i>
+                    <span>Profilim</span>
                 </button>
             </div>
         </header>
@@ -498,6 +503,149 @@
             <div class="shop-items-grid" id="shopItemsGrid">
                 <!-- JS doldurur -->
             </div>
+        </main>
+
+        <!-- ========================================== -->
+        <!-- 👤 AYRI PROFİL & KARİYER SAYFASI (PROFILE) -->
+        <!-- ========================================== -->
+        <main class="main-content tab-content" id="tabContentProfile" style="display: none;">
+            
+            <!-- Giriş Yapmamış Ziyaretçi Uyarısı -->
+            <div id="profileGuestNotice" style="display: none; text-align: center; padding: 60px 20px;">
+                <div style="font-size: 54px; margin-bottom: 16px;">🔒</div>
+                <h3 style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px;">Profilinizi Görüntülemek İçin Giriş Yapın</h3>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Kariyeriniz, işletmeleriniz, evlilik ve servet bilgilerinize erişmek için Discord hesabınızla bağlanın.</p>
+                <a href="/auth/login" class="btn-nav" style="background: #5865f2; color: #fff; padding: 12px 28px; font-size: 14px; border-radius: 14px;">
+                    <i class="fa-brands fa-discord"></i> Discord ile Giriş Yap
+                </a>
+            </div>
+
+            <!-- Giriş Yapmış Kullanıcı İçeriği -->
+            <div class="profile-page-wrapper" id="profileUserContent" style="display: flex;">
+                
+                <!-- Üst Kahraman Kartı: Sol Avatar/İsim, Sağ Bakiye, Alt Ayırıcı ve Butonlar -->
+                <div class="profile-hero-card">
+                    
+                    <!-- Üst Bölüm: Sol İsim / Sağ Bakiye -->
+                    <div class="profile-hero-top">
+                        <div class="profile-user-group">
+                            <div class="profile-avatar-wrap">
+                                <img id="pageProfileAvatar" class="profile-main-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                                <span class="profile-level-badge" id="pageProfileLevelBadge">Lv.1</span>
+                            </div>
+                            <div class="profile-names-block">
+                                <h2 id="pageProfileName">Yükleniyor...</h2>
+                                <span class="profile-discord-id" id="pageProfileId">ID: --</span>
+                            </div>
+                        </div>
+
+                        <!-- Sağ Bakiye ve Toplam Servet -->
+                        <div class="profile-balance-group">
+                            <div class="profile-wealth-box">
+                                <span class="title">Cüzdan Nakit</span>
+                                <span class="value"><span id="pageProfileNakit">0</span> <span style="font-size: 14px; color: var(--gold);">🪙</span></span>
+                            </div>
+                            <div class="profile-wealth-box" style="border-color: rgba(99, 102, 241, 0.35);">
+                                <span class="title">Net Servet</span>
+                                <span class="value" style="color: #a5b4fc;" id="pageProfileServet">0 🪙</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Altındaki Ayırıcı Bar -->
+                    <div class="profile-divider-bar"></div>
+
+                    <!-- Hızlı Aksiyon Butonları (Çalış & Topla) -->
+                    <div class="profile-actions-bar">
+                        
+                        <!-- 1. ÇALIŞ (MESAİ) BUTONU -->
+                        <button class="btn-profile-action btn-action-work" id="btnProfileWork" onclick="handleProfileWork()">
+                            <div class="action-info">
+                                <span class="action-title"><i class="fa-solid fa-briefcase"></i> Mesaiye Başla / Çalış</span>
+                                <span class="action-sub" id="profileWorkSub">Maaşını almak için tıkla</span>
+                            </div>
+                            <i class="fa-solid fa-bolt" style="font-size: 20px;"></i>
+                        </button>
+
+                        <!-- 2. TOPLA (HASILAT) BUTONU -->
+                        <button class="btn-profile-action btn-action-collect" id="btnProfileCollect" onclick="handleProfileCollect()">
+                            <div class="action-info">
+                                <span class="action-title"><i class="fa-solid fa-sack-dollar"></i> İşletme Hasılatını Topla</span>
+                                <span class="action-sub" id="profileCollectSub">Kasada bekleyen: 0 🪙</span>
+                            </div>
+                            <i class="fa-solid fa-hand-holding-dollar" style="font-size: 20px;"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Alt Detay Grid: Kariyer & Seviye / İşletmeler / Sosyal & Tılsım -->
+                <div class="profile-content-grid">
+                    
+                    <!-- 1. KART: Kariyer & Seviye Durumu -->
+                    <div class="profile-card-box">
+                        <div class="profile-box-title">
+                            <span><i class="fa-solid fa-id-card-clip" style="color: #6366f1;"></i> Kariyer & Meslek</span>
+                            <span class="badge-tag" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;" id="pageProfileLevelText">Lv.1</span>
+                        </div>
+                        
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 2px;" id="pageProfileMeslek">İşsiz</h3>
+                            <p style="font-size: 12px; color: #34d399; font-weight: 700;" id="pageProfileMeslekBonus">Maaş Bonusu Yok</p>
+                        </div>
+
+                        <div style="margin-top: auto;">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 4px;">
+                                <span>Tecrübe (XP)</span>
+                                <span id="pageProfileXpText" style="color: #fff;">0 XP</span>
+                            </div>
+                            <div class="profile-xp-track">
+                                <div class="profile-xp-fill" id="pageProfileXpFill" style="width: 10%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. KART: Sahip Olunan İşletmeler & Pasif Gelir -->
+                    <div class="profile-card-box">
+                        <div class="profile-box-title">
+                            <span><i class="fa-solid fa-building" style="color: #f59e0b;"></i> İşletmeler & Yatırımlar</span>
+                            <span style="font-size: 11px; color: var(--text-muted);">Level 1-5</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;" id="pageProfileIsletmeler">
+                            <!-- JS doldurur -->
+                        </div>
+                    </div>
+
+                    <!-- 3. KART: Sosyal & Büyülü Tılsımlar -->
+                    <div class="profile-card-box">
+                        <div class="profile-box-title">
+                            <span><i class="fa-solid fa-heart-pulse" style="color: #ec4899;"></i> Medeni Durum & Tılsımlar</span>
+                        </div>
+
+                        <div>
+                            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Evlilik</span>
+                            <p style="font-size: 13px; font-weight: 700; color: #fff; margin-top: 2px;" id="pageProfileMedeni">Bekar</p>
+                        </div>
+
+                        <div style="margin-top: 6px;">
+                            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Kader / Şans Aurası</span>
+                            <p style="font-size: 12px; font-weight: 700; color: #60a5fa; margin-top: 2px;" id="pageProfileAura">Nötr (0 Puan)</p>
+                        </div>
+
+                        <div style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px;">
+                            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; display: block;">Aktif Büyülü Tılsımlar</span>
+                            <div id="pageProfileTilsimlar" style="display: flex; flex-direction: column; gap: 6px;">
+                                <!-- JS doldurur -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </main>
 
         <!-- FOOTER -->
@@ -1731,5 +1879,6 @@
     <script src="road.js?v=4"></script>
     <script src="market.js?v=2"></script>
     <script src="shop.js?v=4"></script>
+    <script src="profile.js?v=1"></script>
 </body>
 </html>

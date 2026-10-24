@@ -1,0 +1,364 @@
+/* ======================================================
+   👤 VEXORA AYRI PROFİL SAYFASI (PROFILE PAGE)
+   ====================================================== */
+
+.profile-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Üst Kart: Orta-Sol Avatar & İsim, Sağ Taraf Bakiye & Butonlar */
+.profile-hero-card {
+    background: linear-gradient(135deg, rgba(22, 28, 45, 0.8) 0%, rgba(11, 14, 24, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 28px 32px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.profile-hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-user-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+}
+
+.profile-main-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+    object-fit: cover;
+    border: 2px solid rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.25);
+}
+
+.profile-level-badge {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 12px;
+    border: 2px solid #0f1322;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.profile-names-block h2 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-discord-id {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: monospace;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 2px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* Sağ Bakiye Bloğu */
+.profile-balance-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.profile-wealth-box {
+    background: rgba(14, 18, 30, 0.85);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 18px;
+    padding: 14px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.06);
+}
+
+.profile-wealth-box span.title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+}
+
+.profile-wealth-box span.value {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--gold);
+    font-family: var(--font-heading);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Ayırıcı Bar */
+.profile-divider-bar {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.3) 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+    width: 100%;
+}
+
+/* Hızlı Aksiyon Butonları (ÇALIŞ & TOPLA) */
+.profile-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn-profile-action {
+    flex: 1;
+    min-width: 220px;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-profile-action:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.btn-profile-action:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+}
+
+/* Çalış Butonu (Mor/İndigo) */
+.btn-action-work {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: #fff;
+    border: 1px solid #818cf8;
+    box-shadow: 0 10px 30px -8px rgba(99, 102, 241, 0.4);
+}
+
+/* Topla Butonu (Zümrüt Yeşil) */
+.btn-action-collect {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    border: 1px solid #34d399;
+    box-shadow: 0 10px 30px -8px rgba(16, 185, 129, 0.4);
+}
+
+.action-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.action-title {
+    font-size: 14px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-sub {
+    font-size: 11px;
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+/* Alt Grid: 3 Kolon (Kariyer & Seviye / İşletmeler / Sosyal & Tılsımlar) */
+.profile-content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 960px) {
+    .profile-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-card-box {
+    background: linear-gradient(180deg, rgba(20, 26, 42, 0.75) 0%, rgba(10, 13, 22, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-box-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-box-title span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #cbd5e1;
+}
+
+/* İşletme / Tılsım Liste Kartları */
+.profile-item-row {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.profile-item-row:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.profile-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-item-icon {
+    font-size: 20px;
+}
+
+.profile-item-info h4 {
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.profile-item-info p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.profile-item-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-item-upgrade {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-item-upgrade:hover {
+    background: #f59e0b;
+    color: #000;
+}
+
+/* Seviye & XP Barı */
+.profile-xp-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.profile-xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 8px;
+    transition: width 0.4s ease;
+}
+
+@media (max-width: 860px) {
+    .profile-hero-card {
+        padding: 20px 16px;
+    }
+
+    .profile-hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-balance-group {
+        width: 100%;
+    }
+
+    .profile-wealth-box {
+        flex: 1;
+    }
+
+    .btn-profile-action {
+        width: 100%;
+    }
+}
