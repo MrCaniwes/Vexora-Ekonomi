@@ -94,11 +94,13 @@ async function kuyruguIsle() {
                     if (kanal && kanal.isTextBased()) {
                         const item = bildirimKuyrugu.shift();
                         
-                        // Kullanıcı bilgisini çek
-                        let kullaniciAdi = `<@${item.userId}>`;
+                        // Kullanıcı bilgisini çek (Kullanıcıyı rahatsız etmemek/ping atmamak için sadece isim olarak yazılır)
+                        let kullaniciAdi = `**Kullanıcı (${item.userId})**`;
                         try {
                             const user = await globalClient.users.fetch(item.userId).catch(() => null);
-                            if (user) kullaniciAdi = `**${user.username}** (<@${user.id}>)`;
+                            if (user) {
+                                kullaniciAdi = `**${user.globalName || user.username}** (\`@${user.username}\`)`;
+                            }
                         } catch (e) {}
 
                         let container;
@@ -161,7 +163,8 @@ async function kuyruguIsle() {
 
                         await kanal.send({ 
                             components: [container], 
-                            flags: MessageFlags.IsComponentsV2 
+                            flags: MessageFlags.IsComponentsV2,
+                            allowedMentions: { parse: [] } // Asla hiçbir kullanıcıya/role ping/bildirim gönderme
                         }).catch(err => {
                             console.error('[Canlı Durum] Mesaj gönderilemedi:', err.message);
                         });
