@@ -473,7 +473,7 @@ function startWebServer(client) {
             winningColor,
             totalBet,
             totalWin,
-            yeniBakiye,
+            yeniBakiye: wheelBakiye,
             segmentAngle: 360 / WHEEL_SEGMENTS.length
         });
     });
