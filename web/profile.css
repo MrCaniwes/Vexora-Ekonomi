@@ -308,19 +308,34 @@
     border: 1px solid rgba(245, 158, 11, 0.35);
     color: #fbbf24;
     padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 11px;
     font-weight: 800;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .btn-item-upgrade:hover {
     background: #f59e0b;
     color: #000;
+}
+
+.btn-item-upgrade:hover .upgrade-cost-pill {
+    background: rgba(0, 0, 0, 0.25);
+    color: #000;
+}
+
+.upgrade-cost-pill {
+    background: rgba(245, 158, 11, 0.25);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #fef08a;
+    transition: all 0.2s ease;
 }
 
 /* Seviye & XP Barı */

@@ -81,7 +81,13 @@ async function loadProfilePage() {
                         </div>
                     </div>
                     <div class="profile-item-right">
-                        ${(y.seviye || 1) < 5 ? `<button class="btn-item-upgrade" onclick="handleProfileUpgrade('${y.id}')"><i class="fa-solid fa-arrow-up"></i> Yükselt</button>` : '<span style="font-size: 11px; color: #10b981; font-weight: 800;">MAX LVL</span>'}
+                        ${(y.seviye || 1) < 5 ? `
+                            <button class="btn-item-upgrade" onclick="handleProfileUpgrade('${y.id}', ${y.yukseltmeMaliyeti || 0})">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                <span>Yükselt</span>
+                                <span class="upgrade-cost-pill">${y.yukseltmeMaliyeti ? y.yukseltmeMaliyeti.toLocaleString() + ' 🪙' : ''}</span>
+                            </button>
+                        ` : '<span style="font-size: 11px; color: #10b981; font-weight: 800;">MAX LVL</span>'}
                     </div>
                 </div>
             `).join('');
@@ -229,8 +235,9 @@ async function handleProfileCollect() {
 }
 
 // ⬆️ İŞLETME YÜKSELTME
-async function handleProfileUpgrade(isletmeId) {
-    if (!confirm('Bu işletmeyi bir üst seviyeye yükseltmek istiyor musunuz?')) return;
+async function handleProfileUpgrade(isletmeId, cost) {
+    const costText = cost ? `${cost.toLocaleString()} 🪙 karşılığında ` : '';
+    if (!confirm(`Bu işletmeyi ${costText}bir üst seviyeye yükseltmek istiyor musunuz?`)) return;
 
     try {
         const res = await fetch('/api/profile/upgrade', {

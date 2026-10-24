@@ -191,6 +191,29 @@ function startWebServer(client) {
 
         const aktifTilsimlar = getAktifTilsimlar(userId);
 
+        // İşletme yükseltme bedellerini hesapla
+        const shopPath = path.join(__dirname, '..', 'config', 'shop.json');
+        let shopData = { yatirimlar: [] };
+        try {
+            shopData = JSON.parse(fs.readFileSync(shopPath, 'utf8'));
+        } catch {}
+
+        const yatirimlarListesi = (envanter.filter(e => e.kategori === 'yatirimlar') || []).map(y => {
+            const veri = shopData.yatirimlar.find(s => s.id === y.id);
+            const seviye = y.seviye || 1;
+            let yukseltmeMaliyeti = null;
+            if (seviye < 5 && veri) {
+                const katsayi = [0.6, 1.2, 2.0, 3.5][seviye - 1] || 0.6;
+                yukseltmeMaliyeti = Math.floor(veri.fiyat * katsayi);
+            }
+            return {
+                ...y,
+                seviye,
+                saatlikGelir: veri ? veri.saatlikGelir : 0,
+                yukseltmeMaliyeti
+            };
+        });
+
         res.json({
             loggedIn: true,
             user: {
@@ -206,7 +229,7 @@ function startWebServer(client) {
                 medeniDurum,
                 kaderMetni,
                 tilsimlar: aktifTilsimlar,
-                yatirimlar: envanter.filter(e => e.kategori === 'yatirimlar'),
+                yatirimlar: yatirimlarListesi,
                 yuzukler: envanter.filter(e => e.kategori === 'yuzukler')
             }
         });
