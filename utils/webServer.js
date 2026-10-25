@@ -71,6 +71,12 @@ function startWebServer(client) {
     // Statik web klasörünü dışa aç
     app.use(express.static(path.join(__dirname, '..', 'web')));
 
+    // Pelican Town (Sürpriz Sayfası) klasörünü /pelican-town URL'si ile dışa aç
+    app.use('/pelican-town', express.static(path.join(__dirname, '..', 'pelican-town')));
+    app.get('/pelican-town', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pelican-town', 'index.html'));
+    });
+
     // Helper: Oturumdaki kullanıcıyı doğrula
     const getAuthUser = (req) => {
         const cookie = req.cookies.vex_user;

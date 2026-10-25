@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana Bir Mektup Var 💌</title>
+    <!-- Pixel ve Retro Türkçe Uyumlu Fontlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=DotGothic16&family=Comfortaa:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Arka plan süzülen kalpler & yapraklar -->
+    <div id="heart-container"></div>
+
+    <!-- Ana Oyun / Sahne Ekranı (Stardew Valley Kasabası) -->
+    <div class="game-viewport">
+        <!-- Başlangıç / Hazır mısın Ekranı (İzle Butonu) -->
+        <div id="startOverlay" class="start-overlay">
+            <div class="start-card">
+                <div class="pixel-envelope-icon">💌</div>
+                <h1 class="start-title">Sana Özel Bir Sürpriz Var</h1>
+                <p class="start-subtitle">Pelican Town'da sakin bir gün başlıyor...</p>
+                <button id="btnStartGame" class="pixel-btn start-btn">
+                    <span>▶ HİKAYEYİ BAŞLAT</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pixel Kasaba Manzarası & Animasyon Canvası -->
+        <canvas id="stardewCanvas"></canvas>
+
+        <!-- Stardew Valley Tarzı Retro Diyalog / Etkileşim Kutusu -->
+        <div id="interactionBox" class="stardew-box hidden">
+            <div class="box-inner">
+                <div class="box-icon" id="dialogIcon">📬</div>
+                <div class="box-content">
+                    <p class="dialog-title" id="dialogSpeaker">Pelican Town Postası</p>
+                    <p class="dialog-text" id="dialogBody">Posta kutuna gizemli ve çok özel bir mektup bırakıldı.<br><span class="highlight-q">Açıp okumak ister misin?</span></p>
+                </div>
+            </div>
+            <div class="box-actions">
+                <button id="btnDialogNext" class="pixel-btn primary-btn">
+                    <span id="btnDialogNextText">Devam Et ▶</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mektup / Parşömen Modalı (Pixel Kağıt) -->
+        <div id="letterModal" class="letter-overlay hidden">
+            <div class="parchment-letter">
+                <div class="letter-stamp">♥</div>
+                <div class="letter-scroll-area">
+                    <h2 class="letter-header">Sevgili Güzel İnsan,</h2>
+                    <div class="letter-body">
+                        <p>
+                            Bazen hayat, tıpkı küçük ve huzurlu bir kasabada beklenmedik bir anda açan çiçekler gibi tatlı sürprizlerle dolu oluyor.
+                        </p>
+                        <p>
+                            Seninle geçirdiğim her an, konuştuğumuz her saniye o kadar kıymetli ve o kadar içimi ısıtıyor ki... Hayatıma girdiğin ilk andan itibaren etrafımdaki tüm renkler daha canlı, günler çok daha keyifli hale geldi.
+                        </p>
+                        <p>
+                            Basit ve sıradan bir teklif yerine; bu dünyadaki en özel insana yakışır şekilde, kendi küçük masalımızın kapısını aralamak istedim. Beraber yürümek, beraber gülmek ve en güzel anılarımızı birlikte biriktirmek istiyorum.
+                        </p>
+                        <p class="letter-question">
+                            Benimle birlikte bu güzel hikayeyi yaşamaya var mısın? 🌸
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Teklif Butonları (Evet & Kaçan Hayır) -->
+                <div class="proposal-arena" id="proposalArena">
+                    <button id="btnYes" class="pixel-btn yes-btn">
+                        <span>💖 EVET!</span>
+                    </button>
+                    <button id="btnNo" class="pixel-btn no-btn">
+                        <span>Hayır</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Başarı / Mutlu Son Ekranı (Temsili Çift & Kalpler) -->
+        <div id="celebrationModal" class="celebration-overlay hidden">
+            <div class="celebration-card">
+                <div class="sparkles-decor">✧ ✦ ✧</div>
+                <h1 class="celebration-title">KABUL ETTİN! 🥰</h1>
+                
+                <!-- Temsili Stardew Çifti Animasyon Canvası -->
+                <div class="couple-stage">
+                    <canvas id="coupleCanvas" width="180" height="110"></canvas>
+                </div>
+
+                <p class="celebration-sub">
+                    Artık en güzel günlere, kahkahalara ve maceralara birlikte yürüyoruz... 💖
+                </p>
+                <div class="pixel-badge-heart">PELICAN TOWN RESMİ ÇİFTİ ✨</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

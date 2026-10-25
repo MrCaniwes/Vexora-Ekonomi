@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --stardew-wood-dark: #6e3d1b;
+    --stardew-wood-border: #4a2810;
+    --stardew-wood-light: #c88a4b;
+    --parchment-bg: #fff8e7;
+    --parchment-border: #8b5a2b;
+    --pink-heart: #ff4b72;
+}
+
+body {
+    background: radial-gradient(circle at center, #ffdce5 0%, #ffb6c9 60%, #ffa5bc 100%);
+    min-height: 100vh;
+    font-family: 'DotGothic16', 'VT323', monospace;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Süzülen piksel arka plan kalpleri */
+#heart-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-heart {
+    position: absolute;
+    color: rgba(255, 75, 114, 0.45);
+    font-size: 14px;
+    animation: floatUp linear infinite;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(105vh) scale(0.7) rotate(0deg); opacity: 0; }
+    15% { opacity: 0.8; }
+    85% { opacity: 0.8; }
+    100% { transform: translateY(-10vh) scale(1.1) rotate(15deg); opacity: 0; }
+}
+
+/* Ana Görünüm Kutusu (Stardew Penceresi) */
+.game-viewport {
+    position: relative;
+    z-index: 5;
+    width: 95vw;
+    max-width: 900px;
+    height: 90vh;
+    max-height: 600px;
+    background: #1a0e1c;
+    border-radius: 12px;
+    box-shadow: 
+        0 20px 50px rgba(180, 50, 90, 0.35),
+        0 0 0 6px #784224,
+        0 0 0 10px #421e0a,
+        0 0 0 14px #ffb3c6;
+    overflow: hidden;
+}
+
+#stardewCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* Stardew Valley Tarzı Klasik Diyalog Kutusu */
+.stardew-box {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 650px;
+    background: #e8b67b;
+    border: 4px solid #5a2e12;
+    box-shadow: 
+        inset -4px -4px 0px #b87b41,
+        inset 4px 4px 0px #f5d7a6,
+        0 8px 16px rgba(0, 0, 0, 0.4);
+    padding: 16px 20px;
+    z-index: 20;
+    transition: all 0.3s ease;
+}
+
+.box-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.box-icon {
+    font-size: 32px;
+    background: #ffe3b3;
+    border: 3px solid #7a431d;
+    padding: 6px 10px;
+    box-shadow: inset 2px 2px 0px #fff;
+}
+
+.dialog-title {
+    font-size: 18px;
+    color: #4a250a;
+    font-weight: bold;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.dialog-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #2e1605;
+}
+
+.highlight-q {
+    color: #8f1d35;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.box-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Pixel Buton Stilleri */
+.pixel-btn {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 3px solid #361706;
+    background: #ff5e7e;
+    color: #fff;
+    box-shadow: 
+        inset 2px 2px 0px #ff94ab,
+        inset -2px -2px 0px #ba2748,
+        0 4px 0px #240c03;
+    outline: none;
+    transition: transform 0.08s;
+    user-select: none;
+}
+
+.pixel-btn:active {
+    transform: translateY(3px);
+    box-shadow: 
+        inset 2px 2px 0px #ff94ab,
+        inset -2px -2px 0px #ba2748,
+        0 1px 0px #240c03;
+}
+
+.primary-btn {
+    background: #4caf50;
+    box-shadow: 
+        inset 2px 2px 0px #81c784,
+        inset -2px -2px 0px #2e7d32,
+        0 4px 0px #1b451d;
+}
+
+/* Mektup Modalı & Pixel Parşömen Kağıdı */
+.letter-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 10, 25, 0.75);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+    padding: 16px;
+}
+
+.parchment-letter {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90%;
+    background: #fdf6e2;
+    border: 6px solid #6b401d;
+    box-shadow: 
+        inset -6px -6px 0px #d6ba90,
+        inset 6px 6px 0px #fffdf7,
+        0 16px 35px rgba(0, 0, 0, 0.6);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    animation: popIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.letter-stamp {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 20px;
+    color: #ff3366;
+    border: 2px dashed #b53856;
+    padding: 4px 8px;
+    transform: rotate(8deg);
+}
+
+.letter-scroll-area {
+    overflow-y: auto;
+    max-height: 320px;
+    padding-right: 8px;
+    margin-bottom: 20px;
+}
+
+.letter-scroll-area::-webkit-scrollbar {
+    width: 6px;
+}
+.letter-scroll-area::-webkit-scrollbar-thumb {
+    background: #a36b3b;
+    border-radius: 3px;
+}
+
+.letter-header {
+    font-size: 20px;
+    color: #632616;
+    margin-bottom: 14px;
+    border-bottom: 2px dashed #c49a6c;
+    padding-bottom: 8px;
+}
+
+.letter-body p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3b2219;
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+.letter-question {
+    font-size: 17px !important;
+    font-weight: bold;
+    color: #9c1c41 !important;
+    text-align: center !important;
+    background: #ffe3ec;
+    border: 2px dashed #ff9bb8;
+    padding: 10px;
+    margin-top: 14px;
+}
+
+/* Başlangıç (İzle / Başlat) Ekranı */
+.start-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(43, 20, 36, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    transition: opacity 0.4s ease;
+}
+
+.start-card {
+    background: #fff5e6;
+    border: 5px solid #6b3f1f;
+    box-shadow: 
+        inset -5px -5px 0px #d6b88d,
+        inset 5px 5px 0px #ffffff,
+        0 14px 28px rgba(0, 0, 0, 0.5);
+    padding: 28px 32px;
+    text-align: center;
+    max-width: 440px;
+    animation: popIn 0.3s ease-out;
+}
+
+.pixel-envelope-icon {
+    font-size: 38px;
+    margin-bottom: 8px;
+    animation: gentleBob 2s infinite ease-in-out;
+}
+
+@keyframes gentleBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.start-title {
+    font-size: 19px;
+    color: #782a44;
+    margin-bottom: 8px;
+}
+
+.start-subtitle {
+    font-size: 14px;
+    color: #593521;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    background: #ff5277;
+    font-size: 16px;
+    padding: 12px 24px;
+    letter-spacing: 0.5px;
+    box-shadow: 
+        inset 2px 2px 0px #ffa0b6,
+        inset -2px -2px 0px #b02343,
+        0 4px 0px #240c03;
+    animation: heartPulse 1.6s infinite alternate ease-in-out;
+}
+
+/* Teklif Buton Alanı (Kaçan Hayır Butonu İçin Sabit Yükseklik) */
+.proposal-arena {
+    position: relative;
+    width: 100%;
+    min-height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 10px 0;
+}
+
+.yes-btn {
+    background: #e63964;
+    font-size: 17px;
+    padding: 12px 28px;
+    z-index: 5;
+    animation: heartPulse 1.8s infinite alternate ease-in-out;
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+.no-btn {
+    background: #6c757d;
+    box-shadow: 
+        inset 2px 2px 0px #a4acb4,
+        inset -2px -2px 0px #43494f,
+        0 4px 0px #1f2224;
+    font-size: 15px;
+    padding: 10px 20px;
+    z-index: 10;
+    white-space: nowrap;
+    transition: transform 0.1s ease-out;
+}
+
+/* Kutlama / Çift Ekranı */
+.celebration-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(35, 12, 28, 0.88);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+    padding: 20px;
+}
+
+.celebration-card {
+    background: #ffecf2;
+    border: 6px solid #852d4e;
+    box-shadow: 
+        inset -6px -6px 0px #d494ac,
+        inset 6px 6px 0px #ffffff,
+        0 20px 40px rgba(0, 0, 0, 0.6);
+    padding: 30px 24px;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+    animation: popIn 0.4s ease-out;
+}
+
+.celebration-title {
+    font-size: 22px;
+    color: #b3194a;
+    margin-bottom: 14px;
+}
+
+.couple-stage {
+    margin: 12px auto;
+    background: #46223b;
+    border: 4px solid #733659;
+    border-radius: 8px;
+    width: 190px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#coupleCanvas {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.celebration-sub {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4f2233;
+    margin: 14px 0;
+}
+
+.pixel-badge-heart {
+    display: inline-block;
+    font-size: 13px;
+    background: #ff5277;
+    color: #fff;
+    padding: 8px 16px;
+    border: 2px solid #571224;
+    margin-top: 6px;
+    letter-spacing: 1px;
+}
+
+.hidden {
+    display: none !important;
+}
